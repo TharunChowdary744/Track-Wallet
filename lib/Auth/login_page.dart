@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import '../ui/components/forgotPasswordDialog.dart';
 import 'auth_controller.dart';
 import '../ui/components/blueButton.dart';
 import '../ui/components/customFormField.dart';
@@ -9,13 +10,20 @@ import '../ui/themes/utils.dart';
 import '../ui/themes/validators.dart';
 
 class LoginPage extends StatelessWidget {
+  final AuthController _authController = Get.put(AuthController());
 
-
+  Future<void> _onGoogleSignInPressed() async {
+    await _authController.signInWithGoogle();
+    // BlocProvider.of<LoginBloc>(context).add(LoginWithGoogle());
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //   content: Text("Google Sign In"),
+    // ));
+  }
 
   @override
   Widget build(BuildContext context) {
     void _onSignUpPressed() {
-      // Navigator.of(context).pushReplacementNamed("/registration");
+      Navigator.of(context).pushReplacementNamed("/registration");
     }
     return Scaffold(
       appBar: AppBar(
@@ -63,7 +71,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 GoogleButton(
                     title: "Continue with Google",
-                    onPressed:(){} //_onGoogleSignInPressed,
+                    onPressed:_onGoogleSignInPressed //_onGoogleSignInPressed,
                 ),
                 SizedBox(height: screenHeight * 0.180462516), // 183
                 Row(
@@ -169,19 +177,18 @@ class _LoginFormState extends State<LoginForm> {
   void _onForgetPasswordPressed() {
     final _emailController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
-    // showDialog(
-    //   context: context,
-    //   builder: (dialogContext) => PassResetMailDialog(
-    //     formKey: _formKey,
-    //     emailController: _emailController,
-    //     onPressed: () {
-    //       if (!_formKey.currentState!.validate()) return;
-    //
-    //       BlocProvider.of<LoginBloc>(context)
-    //           .add(ForgetPassword(email: _emailController.text));
-    //     },
-    //   ),
-    // );
+    showDialog(
+      context: context,
+      builder: (dialogContext) => PassResetMailDialog(
+        formKey: _formKey,
+        emailController: _emailController,
+        onPressed: () {
+          if (!_formKey.currentState!.validate()) return;
+
+       /// ////////////////////////////////////////////////////////////////////////////////////////
+        },
+      ),
+    );
   }
 
   @override
@@ -221,7 +228,7 @@ class _LoginFormState extends State<LoginForm> {
             hintText: 'Email',
             prefixImage: 'assets/icons/auth_icons/mail.svg',
             keyboardType: TextInputType.emailAddress,
-            validator: _validator.validateEmail, obscureText: false, enabled: mounted, suffix: _showPassIcon(), textCapitalization: TextCapitalization.none, inputFormatters: [],
+            validator: _validator.validateEmail,
           ),
           SizedBox(height: screenHeight * 0.024459975), // 22
           CustomTextFormField(
@@ -234,7 +241,7 @@ class _LoginFormState extends State<LoginForm> {
             keyboardType: TextInputType.text,
             validator: _validator.validatePassword,
             obscureText: _isObscure,
-            suffix: _showPassIcon(), nextNode: _emailNode, enabled: mounted,inputFormatters: [],textCapitalization: TextCapitalization.none,
+            suffix: _showPassIcon(),
           ),
           SizedBox(height: screenHeight * 0.024459975), // 22
           Row(

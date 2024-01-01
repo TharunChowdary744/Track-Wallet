@@ -47,37 +47,21 @@
 //   }
 // }
 
-import 'package:contri_app/sdk/functions/messaging_functions.dart';
-import 'package:contri_app/ui/components/blueButton.dart';
-import 'package:contri_app/ui/components/customFormField.dart';
-import 'package:contri_app/ui/components/googleButton.dart';
-import 'package:contri_app/ui/components/progressIndicator.dart';
-import 'package:contri_app/ui/global/utils.dart';
-import 'package:contri_app/ui/global/validators.dart';
-import 'package:contri_app/ui/screens/login_page/login_page.dart';
-import 'package:contri_app/ui/screens/register_page/bloc/register_bloc.dart';
-import 'package:contri_app/ui/screens/verification_page/verification_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:contri_app/extensions/snackBar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../ui/components/blueButton.dart';
 import '../ui/components/customFormField.dart';
 import '../ui/components/googleButton.dart';
 import '../ui/themes/utils.dart';
 import '../ui/themes/validators.dart';
 
-class RegisterPage extends StatelessWidget {
-  static const String id = 'register_page';
+class RegistrationPage extends StatelessWidget {
+  // static const String id = 'register_page';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider(
-        create: (context) => RegisterBloc(),
-        child: RegisterMainBody(),
-      ),
+      body: RegisterMainBody()
     );
   }
 }
@@ -98,24 +82,7 @@ class RegisterMainBody extends StatelessWidget {
       Navigator.of(context).pushReplacementNamed('/login');
     }
 
-    return SafeArea(
-      // child: BlocConsumer<RegisterBloc, RegisterState>(
-      //   listener: (context, state) {
-      //     if (state is RegisterFailed) {
-      //       Navigator.of(context).pop();
-      //       context.showSnackBar(state.message);
-      //     }
-      //     if (state is RegisterSuccess) {
-      //       NotificationHandler().configureFcm(context);
-      //       context.showSnackBar("Registration Successful");
-      //       Navigator.of(context).popUntil((route) => route.isFirst);
-      //       Navigator.of(context).pushReplacementNamed(VerificationPage.id);
-      //     }
-      //     if (state is RegisterInProgress) {
-      //       showProgress(context);
-      //     }
-      //   },
-        builder: (context, state) {
+
           return ListView(
             children: [
               SizedBox(
@@ -189,9 +156,7 @@ class RegisterMainBody extends StatelessWidget {
               ),
             ],
           );
-        },
-      ),
-    );
+
   }
 }
 
@@ -211,15 +176,15 @@ class _RegisterFormState extends State<RegisterForm> {
   bool _isObscure = true;
 
   void _onRegisterButtonPressed() {
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
-    if (!acceptTnC) {
-      context.showSnackBar("Please accept Terms and Conditions");
-      return;
-    }
-
-    BlocProvider.of<RegisterBloc>(context).add(RegisterButtonClicked(
-        email: _emailTextController.text, password: _passtextController.text));
+    // if (!acceptTnC) {
+    //   context.showSnackBar("Please accept Terms and Conditions");
+    //   return;
+    // }
+    //
+    // BlocProvider.of<RegisterBloc>(context).add(RegisterButtonClicked(
+    //     email: _emailTextController.text, password: _passtextController.text));
   }
 
   @override
@@ -259,7 +224,7 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: 'Email',
             prefixImage: 'assets/icons/auth_icons/mail.svg',
             keyboardType: TextInputType.emailAddress,
-            validator: _validator.validateEmail, obscureText: false, enabled: false, suffix: Icon(Icons.account_circle), textCapitalization: TextCapitalization.none, inputFormatters: [],
+            validator: _validator.validateEmail, obscureText: false,
           ),
           SizedBox(height: screenHeight * 0.024459975), // 22
           CustomTextFormField(
@@ -272,7 +237,7 @@ class _RegisterFormState extends State<RegisterForm> {
             keyboardType: TextInputType.text,
             validator: _validator.validatePassword,
             obscureText: _isObscure,
-            suffix: _showPassIcon(), nextNode: FocusNode(), enabled: false, textCapitalization: TextCapitalization.none,inputFormatters: [],
+            suffix: _showPassIcon(),
           ),
           // SizedBox(height: screenHeight * 0.061149936), // 55
           SizedBox(height: screenHeight * 0.024459975), // 22

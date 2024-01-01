@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../constants.dart';
 import '../themes/utils.dart';
@@ -43,7 +44,7 @@ class PassResetMailDialog extends StatelessWidget {
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.done,
                 validator: Validator().validateEmail,
-                maxLines: 1, currentNode: FocusNode(), nextNode: FocusNode(), obscureText: false, enabled: false, suffix: Icon(Icons.safety_check), textCapitalization: TextCapitalization.none, inputFormatters: [],
+                maxLines: 1, currentNode: FocusNode(),
               ),
               SizedBox(height: screenHeight * 0.025246941),
               Text(
@@ -79,7 +80,7 @@ class PassResetMailDialog extends StatelessWidget {
                       .logEvent(name: 'trouble_signing_in');
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.all(10),
                   textStyle: Theme.of(context)
                       .textTheme
                       .caption

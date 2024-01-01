@@ -12,12 +12,12 @@ class CustomTextFormField extends StatelessWidget {
     required String prefixImage,
     required TextInputType keyboardType,
     required FocusNode currentNode,
-    required FocusNode nextNode,
-    required bool obscureText,
-    required bool enabled,
-    required Widget suffix,
-    required TextCapitalization textCapitalization,
-    required List<TextInputFormatter> inputFormatters,
+    FocusNode? nextNode,
+    bool? obscureText,
+    bool? enabled,
+    Widget? suffix,
+    TextCapitalization? textCapitalization,
+    List<TextInputFormatter>? inputFormatters,
     required TextInputAction textInputAction,
     required String Function(String) validator,
     required int maxLines,
@@ -40,16 +40,16 @@ class CustomTextFormField extends StatelessWidget {
   final String _hintText;
   final String _prefixImage;
   final TextInputType _keyboardType;
-  final bool _obscureText;
+  final bool? _obscureText;
   final String Function(String) _validator;
   final int _maxLines;
-  final bool _enabled;
-  final Widget _suffix;
+  final bool? _enabled;
+  final Widget? _suffix;
   final TextInputAction _textInputAction;
   final FocusNode _currentNode;
-  final FocusNode _nextNode;
-  final List<TextInputFormatter> _inputFormatters;
-  final TextCapitalization _textCapitalization;
+  final FocusNode? _nextNode;
+  final List<TextInputFormatter>? _inputFormatters;
+  final TextCapitalization? _textCapitalization;
 
   @override
   Widget build(BuildContext context) {

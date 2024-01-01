@@ -37,25 +37,69 @@ class AuthController extends GetxController {
     }
   }
 
+  // Future<void> signInWithGoogle() async {
+  //   try {
+  //     final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+  //     final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+  //
+  //     final AuthCredential credential = GoogleAuthProvider.credential(
+  //       accessToken: googleSignInAuthentication.accessToken,
+  //       idToken: googleSignInAuthentication.idToken,
+  //     );
+  //
+  //     await _auth.signInWithCredential(credential);
+  //     print("+++++++++++++>>>>>${_auth.currentUser}");
+  //
+  //   } catch (e) {
+  //     print("==============>>>>>${e.toString()}");
+  //
+  //     Get.snackbar('Error', e.toString(), snackPosition: SnackPosition.BOTTOM);
+  //   }
+  // }
   Future<void> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
 
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken,
+        );
 
-      await _auth.signInWithCredential(credential);
-      print("+++++++++++++>>>>>${_auth.currentUser}");
+        await _auth.signInWithCredential(credential);
 
-    } catch (e) {
-      print("==============>>>>>${e.toString()}");
+        // Log the login event
+        // await _analytics.logLogin(loginMethod: "google_signin");
 
-      Get.snackbar('Error', e.toString(), snackPosition: SnackPosition.BOTTOM);
+        // Check if the user profile is complete
+        // await checkProfileCompletion();
+      }
+    } catch (error) {
+      print("Google Sign-In Error: $error");
+      // Handle the error
     }
   }
+
+  // Future<void> checkProfileCompletion() async {
+  //   if (currentUser.value != null) {
+  //     final QuerySnapshot querySnapshot = await _firestore
+  //         .collection('users')
+  //         .where('email', isEqualTo: currentUser.value!.email)
+  //         .get();
+  //
+  //     final List<DocumentSnapshot> documents = querySnapshot.docs;
+  //
+  //     if (documents.isEmpty) {
+  //       // User profile is not complete, handle accordingly
+  //       print("User profile is not complete.");
+  //     } else {
+  //       // User profile is complete, navigate to the next screen or perform actions
+  //       print("User profile is complete.");
+  //     }
+  //   }
+  // }
 
   Future<void> signOut() async {
     await _auth.signOut();
