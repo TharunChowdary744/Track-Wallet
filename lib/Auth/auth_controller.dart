@@ -17,9 +17,11 @@ class AuthController extends GetxController {
   Future<void> signUpWithEmailAndPassword(String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      print("------------------->>>>>${_auth.currentUser}");
+      print("+++++++++++++>>>>>${_auth.currentUser}");
 
     } catch (e) {
+      print("==============>>>>>${e.toString()}");
+
       Get.snackbar('Error', e.toString(), snackPosition: SnackPosition.BOTTOM);
     }
   }
@@ -27,9 +29,10 @@ class AuthController extends GetxController {
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      print("------------------->>>>>${_auth.currentUser}");
+      print("+++++++++++++>>>>>${_auth.currentUser}");
 
     } catch (e) {
+      print("==============>>>>>${e.toString()}");
       Get.snackbar('Error', e.toString(), snackPosition: SnackPosition.BOTTOM);
     }
   }
@@ -45,9 +48,11 @@ class AuthController extends GetxController {
       );
 
       await _auth.signInWithCredential(credential);
-      print("------------------->>>>>${_auth.currentUser}");
+      print("+++++++++++++>>>>>${_auth.currentUser}");
 
     } catch (e) {
+      print("==============>>>>>${e.toString()}");
+
       Get.snackbar('Error', e.toString(), snackPosition: SnackPosition.BOTTOM);
     }
   }

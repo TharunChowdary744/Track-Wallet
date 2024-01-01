@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+
+import '../constants.dart';
+import '../themes/utils.dart';
+
+class BlueButton extends StatelessWidget {
+  final Function onPressed;
+  final String title;
+
+  BlueButton({required this.title, required this.onPressed})
+      : assert(onPressed != null),
+        assert(title != null);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: kBorderRadius,
+      color: Colors.transparent,
+      elevation: 5.0,
+      shadowColor: Theme.of(context).primaryColor.withOpacity(0.5),
+      child: ElevatedButton(
+        onPressed: onPressed as void Function()?,
+        style: ElevatedButton.styleFrom(
+          primary: Theme.of(context).primaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: kBorderRadius,
+          ),
+          padding: EdgeInsets.symmetric(
+            vertical: screenHeight * 0.018900889, // 17
+          ),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.button?.copyWith(
+              fontSize: screenHeight * 0.017789072, // 16
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../auth_controller.dart';
+import 'auth_controller.dart';
 
 class RegistrationPage extends StatelessWidget {
-  final AuthController _authController = Get.find();
+  // final AuthController _authController = Get.find();
+  final AuthController _authController = Get.put(AuthController());
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 

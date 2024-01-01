@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'auth_controller.dart';
+import 'Auth/auth_controller.dart';
 
 class AuthPage extends StatelessWidget {
   final AuthController _authController = Get.put(AuthController());
