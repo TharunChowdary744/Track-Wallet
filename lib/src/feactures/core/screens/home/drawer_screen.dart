@@ -4,6 +4,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:in_app_review/in_app_review.dart';
 import '../../../../../ui/constants.dart';
+import '../../../../repository/authentication_repository/authentication_repository.dart';
 import '../../../../utils/utils.dart';
 import '../../../../common_widgets/drawer_tile.dart';
 import '../auth/login_page.dart';
@@ -143,8 +144,9 @@ class TopDrawer extends StatelessWidget {
           title: "Logout",
           icon: "assets/icons/drawer_menu/logout.svg",
           onTap: () async {
+            AuthenticationRepository.instance.logout();
             // BlocProvider.of<AuthBloc>(context).add(JustLoggedOut());
-            await _analytics.logEvent(name: "logout");
+            // await _analytics.logEvent(name: "logout");
             Navigator.of(context).pushReplacementNamed('/login');
           },
         ),

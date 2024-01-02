@@ -1,6 +1,6 @@
-import 'package:expense_tracker/src/feactures/authentication/screens/expense_page.dart';
-import 'package:expense_tracker/src/feactures/authentication/screens/home/drawer_screen.dart';
-import 'package:expense_tracker/src/feactures/authentication/screens/profile_page.dart';
+import 'package:expense_tracker/src/feactures/core/screens/expense_page.dart';
+import 'package:expense_tracker/src/feactures/core/screens/home/drawer_screen.dart';
+import 'package:expense_tracker/src/feactures/core/screens/profile_page.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:expense_tracker/src/utils/utils.dart';
 import 'package:flutter/material.dart';

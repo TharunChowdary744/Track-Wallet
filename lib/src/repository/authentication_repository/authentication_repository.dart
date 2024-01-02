@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../glober/logger.dart';
 import '../../exceptions/signup_email_password_failure.dart';
-import '../../feactures/authentication/models/user_model.dart';
+import '../../feactures/core/models/user_model.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -64,8 +64,9 @@ class AuthenticationRepository extends GetxController {
   }
 
   Future<UserCredential?> loginInWithGoogle() async {
-    final controller = Get.put(UserRepository());
+
     try {
+      final controller = await Get.put(UserRepository());
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth =
@@ -103,6 +104,7 @@ class AuthenticationRepository extends GetxController {
 
   Future<void> logout() async {
     await _auth.signOut();
+    await GoogleSignIn().signOut();
     // await _googleSignIn.signOut();
     Get.offAllNamed('/login');
   }

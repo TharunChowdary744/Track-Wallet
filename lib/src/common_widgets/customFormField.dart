@@ -17,6 +17,7 @@ class CustomTextFormField extends StatelessWidget {
     Widget? suffix,
     TextCapitalization? textCapitalization,
     List<TextInputFormatter>? inputFormatters,
+    String? initialValue,
     required TextInputAction textInputAction,
     required String Function(String) validator,
     required int maxLines,
@@ -33,6 +34,7 @@ class CustomTextFormField extends StatelessWidget {
         _suffix = suffix,
         _textCapitalization = textCapitalization,
         _inputFormatters = inputFormatters,
+        _initialValue = initialValue,
         _enabled = enabled;
 
   final TextEditingController _fieldController;
@@ -48,12 +50,14 @@ class CustomTextFormField extends StatelessWidget {
   final FocusNode _currentNode;
   final FocusNode? _nextNode;
   final List<TextInputFormatter>? _inputFormatters;
+  final String? _initialValue;
   final TextCapitalization? _textCapitalization;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
+        initialValue: _initialValue,
         focusNode: _currentNode,
         onFieldSubmitted: (value) {
           if (_currentNode != null) {

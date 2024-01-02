@@ -1,4 +1,4 @@
-import 'package:expense_tracker/src/feactures/authentication/controllers/auth_controllers/login_controller.dart';
+import 'package:expense_tracker/src/feactures/core/controllers/auth_controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -18,6 +18,7 @@ class LoginPage extends StatelessWidget {
     void _onSignUpPressed() {
       Navigator.of(context).pushReplacementNamed("/registration");
     }
+
     return Scaffold(
       body: ListView(
         children: [
@@ -34,13 +35,9 @@ class LoginPage extends StatelessWidget {
               children: [
                 Text(
                   "Welcome",
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headline1
-                      ?.copyWith(
-                    fontSize: screenHeight * 0.042249047, //38
-                  ),
+                  style: Theme.of(context).textTheme.headline1?.copyWith(
+                        fontSize: screenHeight * 0.042249047, //38
+                      ),
                 ),
                 SizedBox(
                   height: screenHeight * 0.036689962, //33
@@ -54,13 +51,9 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Text(
                       "or connect with",
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline4
-                          ?.copyWith(
-                        fontSize: screenHeight * 0.01111817, // 10
-                      ),
+                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                            fontSize: screenHeight * 0.01111817, // 10
+                          ),
                     ),
                   ],
                 ),
@@ -73,35 +66,26 @@ class LoginPage extends StatelessWidget {
                       LoginController.instance.googleLogin();
                       Navigator.of(context).pushReplacementNamed('/home');
                     }
-                  //_onGoogleSignInPressed,
-                ),
+                    //_onGoogleSignInPressed,
+                    ),
                 SizedBox(height: screenHeight * 0.180462516), // 183
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Don't have an account? ",
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .caption
-                          ?.copyWith(
-                        fontSize: screenHeight * 0.01111817, // 10
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: Theme.of(context).textTheme.caption?.copyWith(
+                            fontSize: screenHeight * 0.01111817, // 10
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
                     GestureDetector(
                       onTap: _onSignUpPressed,
                       child: Text(
                         "Sign Up",
-                        style:
-                        Theme
-                            .of(context)
-                            .textTheme
-                            .headline6
-                            ?.copyWith(
-                          fontSize: screenHeight * 0.01111817, // 10
-                        ),
+                        style: Theme.of(context).textTheme.headline6?.copyWith(
+                              fontSize: screenHeight * 0.01111817, // 10
+                            ),
                       ),
                     ),
                   ],
@@ -122,7 +106,6 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-
   final _emailNode = FocusNode();
   final _passwordNode = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -136,16 +119,15 @@ class _LoginFormState extends State<LoginForm> {
     final _formKey = GlobalKey<FormState>();
     showDialog(
       context: context,
-      builder: (dialogContext) =>
-          PassResetMailDialog(
-            formKey: _formKey,
-            emailController: _emailController,
-            onPressed: () {
-              if (!_formKey.currentState!.validate()) return;
+      builder: (dialogContext) => PassResetMailDialog(
+        formKey: _formKey,
+        emailController: _emailController,
+        onPressed: () {
+          if (!_formKey.currentState!.validate()) return;
 
-              /// ////////////////////////////////////////////////////////////////////////////////////////
-            },
-          ),
+          /// ////////////////////////////////////////////////////////////////////////////////////////
+        },
+      ),
     );
   }
 
@@ -159,9 +141,7 @@ class _LoginFormState extends State<LoginForm> {
             _isObscure
                 ? "assets/icons/auth_icons/visibility_off.svg"
                 : "assets/icons/auth_icons/visibility.svg",
-            color: Theme
-                .of(context)
-                .primaryColor,
+            color: Theme.of(context).primaryColor,
             height: screenHeight * 0.024471635,
             width: screenHeight * 0.024471635,
           ),
@@ -211,20 +191,20 @@ class _LoginFormState extends State<LoginForm> {
                 onTap: _onForgetPasswordPressed,
                 child: Text(
                   "FORGOT PASWWORD",
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headline6
-                      ?.copyWith(
-                    fontSize: screenHeight * 0.01111817, // 10
-                  ),
+                  style: Theme.of(context).textTheme.headline6?.copyWith(
+                        fontSize: screenHeight * 0.01111817, // 10
+                      ),
                 ),
               ),
             ],
           ),
           SizedBox(height: screenHeight * 0.024459975), // 22
-          BlueButton(title: "Sign In",
-              onPressed: () => LoginController.instance.emailAndPasswordLogin),
+          BlueButton(
+              title: "Sign In",
+              onPressed: () {
+                LoginController.instance.emailAndPasswordLogin(
+                    emailController.text, passwordController.text);
+              }),
         ],
       ),
     );

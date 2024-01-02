@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_tracker/glober/logger.dart';
-import 'package:expense_tracker/src/feactures/authentication/models/user_model.dart';
+import 'package:expense_tracker/src/feactures/core/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

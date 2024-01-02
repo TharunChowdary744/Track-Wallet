@@ -21,6 +21,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> emailAndPasswordLogin(String email, String password) async {
-    // Handle email and password Sign In logic
+    logger.e("tap!!!!!!!!!!!!!!");
+    await AuthenticationRepository.instance.loginWithEmailAndPassword(email, password);
   }
 }

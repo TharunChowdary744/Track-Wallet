@@ -9,13 +9,13 @@ class CurrencyFormField extends StatefulWidget {
   final TextEditingController defaultCurrencyCodeController;
   final FocusNode currentNode;
   final bool enabled;
-  final FocusNode nextNode;
+  final FocusNode? nextNode;
 
   CurrencyFormField({
     required this.defaultCurrencyCodeController,
     required this.currentNode,
     required this.enabled,
-    required this.nextNode,
+    this.nextNode,
   });
 
   @override

@@ -1,4 +1,4 @@
-import 'package:expense_tracker/src/feactures/authentication/models/user_model.dart';
+import 'package:expense_tracker/src/feactures/core/models/user_model.dart';
 import 'package:expense_tracker/src/repository/user_repository/user_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
