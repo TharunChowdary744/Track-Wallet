@@ -1,10 +1,8 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../constants.dart';
-import '../themes/utils.dart';
-import '../themes/validators.dart';
+import '../../ui/constants.dart';
+import '../utils/utils.dart';
+import '../../ui/themes/validators.dart';
 import 'customFormField.dart';
 
 class PassResetMailDialog extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../glober/logger.dart';
-import '../../ui/themes/utils.dart';
+import '../../src/utils/utils.dart';
 
 class NotificationHandler {
   static final _fcm = FirebaseMessaging.instance;

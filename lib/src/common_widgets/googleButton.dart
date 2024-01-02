@@ -56,8 +56,8 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../constants.dart';
-import '../themes/utils.dart';
+import '../../ui/constants.dart';
+import '../utils/utils.dart';
 
 class GoogleButton extends StatelessWidget {
   final void Function() onPressed;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../themes/utils.dart';
+import '../../ui/constants.dart';
+import '../utils/utils.dart';
 
 class BlueButton extends StatelessWidget {
   final Function onPressed;

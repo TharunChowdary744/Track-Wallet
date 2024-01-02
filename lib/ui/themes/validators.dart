@@ -1,20 +1,9 @@
 
 
-import 'package:expense_tracker/ui/themes/utils.dart';
+import 'package:expense_tracker/src/utils/utils.dart';
 
 class Validator {
-  // String validateEmail(String email) {
-  //   Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-  //
-  //   RegExp regex = new RegExp(pattern);
-  //
-  //   if (email.isEmpty)
-  //     return "This field cannot be empty";
-  //   else if (!regex.hasMatch(email))
-  //     return "Enter a valid email";
-  //   else
-  //     return '';
-  // }
+
   String validateEmail(String email) {
     String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';

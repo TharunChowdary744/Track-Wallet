@@ -1,34 +1,24 @@
+import 'package:expense_tracker/src/feactures/authentication/controllers/auth_controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import '../ui/components/forgotPasswordDialog.dart';
-import 'auth_controller.dart';
-import '../ui/components/blueButton.dart';
-import '../ui/components/customFormField.dart';
-import '../ui/components/googleButton.dart';
-import '../ui/themes/utils.dart';
-import '../ui/themes/validators.dart';
+import 'package:get/get_core/src/get_main.dart';
+import '../../../../common_widgets/blueButton.dart';
+import '../../../../common_widgets/customFormField.dart';
+import '../../../../common_widgets/forgotPasswordDialog.dart';
+import '../../../../common_widgets/googleButton.dart';
+import '../../../../utils/utils.dart';
+import '../../../../../ui/themes/validators.dart';
 
 class LoginPage extends StatelessWidget {
-  final AuthController _authController = Get.put(AuthController());
-
-  Future<void> _onGoogleSignInPressed() async {
-    await _authController.signInWithGoogle();
-    // BlocProvider.of<LoginBloc>(context).add(LoginWithGoogle());
-    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //   content: Text("Google Sign In"),
-    // ));
-  }
-
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginController());
+
     void _onSignUpPressed() {
       Navigator.of(context).pushReplacementNamed("/registration");
     }
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
       body: ListView(
         children: [
           SizedBox(
@@ -44,7 +34,11 @@ class LoginPage extends StatelessWidget {
               children: [
                 Text(
                   "Welcome",
-                  style: Theme.of(context).textTheme.headline1?.copyWith(
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .headline1
+                      ?.copyWith(
                     fontSize: screenHeight * 0.042249047, //38
                   ),
                 ),
@@ -60,7 +54,11 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Text(
                       "or connect with",
-                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline4
+                          ?.copyWith(
                         fontSize: screenHeight * 0.01111817, // 10
                       ),
                     ),
@@ -71,7 +69,11 @@ class LoginPage extends StatelessWidget {
                 ),
                 GoogleButton(
                     title: "Continue with Google",
-                    onPressed:_onGoogleSignInPressed //_onGoogleSignInPressed,
+                    onPressed: () {
+                      LoginController.instance.googleLogin();
+                      Navigator.of(context).pushReplacementNamed('/home');
+                    }
+                  //_onGoogleSignInPressed,
                 ),
                 SizedBox(height: screenHeight * 0.180462516), // 183
                 Row(
@@ -79,7 +81,11 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Text(
                       "Don't have an account? ",
-                      style: Theme.of(context).textTheme.caption?.copyWith(
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .caption
+                          ?.copyWith(
                         fontSize: screenHeight * 0.01111817, // 10
                         fontWeight: FontWeight.w600,
                       ),
@@ -89,7 +95,11 @@ class LoginPage extends StatelessWidget {
                       child: Text(
                         "Sign Up",
                         style:
-                        Theme.of(context).textTheme.headline6?.copyWith(
+                        Theme
+                            .of(context)
+                            .textTheme
+                            .headline6
+                            ?.copyWith(
                           fontSize: screenHeight * 0.01111817, // 10
                         ),
                       ),
@@ -105,6 +115,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
 class LoginForm extends StatefulWidget {
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -117,77 +128,24 @@ class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _validator = Validator();
   bool _isObscure = true;
-  final AuthController _authController = Get.put(AuthController());
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  Future<void> _onLoginButtonPressed() async {
-    if (!_formKey.currentState!.validate()) return;
-    await _authController.signInWithEmailAndPassword(emailController.text, passwordController.text);
-    // await _authController.signInWithEmailAndPassword(emailController.text, passwordController.text);
-    if (_authController.user.value != null) {
-      print("------------------->>>>>${_authController.user}");
-      // Navigate to the home page or do something else after successful login
-      Get.offAllNamed('/home');
-    }
-    // Provider.of<LoginProvider>(context, listen: false).setLoading(true);
-    // try {
-    //   AuthService authService = AuthService();
-    //   await authService.signInWithEmailAndPassword(
-    //     email: _emailTextController.text,
-    //     password: _passtextController.text,
-    //   );
-    //   /// Initialize some data or perform additional logic
-    //   await initializeSdk;
-    //   logger.i("sdk Initialized");
-    //
-    //   /// Check if the user profile is complete
-    //   if (globalUser.registrationStatus != RegistrationStatus.registered.toString()) {
-    //     logger.i("User Profile Incomplete");
-    //     Provider.of<LoginProvider>(context, listen: false).setLoading(false);
-    //     // Navigator.of(context).pushReplacementNamed(ProfileRegPage.id);
-    //   }
-    //   else {
-    //     logger.i("All Checks Passed");
-    //
-    //     ///Upload device token for notifications
-    //     final _prefs = await SharedPreferences.getInstance();
-    //     final _notificationStatus = _prefs.getBool('showNotifications');
-    //     logger.v("Show Notifications: $_notificationStatus");
-    //
-    //     if (_notificationStatus == null || _notificationStatus == true) {
-    //       await NotificationHandler.uploadDeviceToken(userId: globalUser.id);
-    //     }
-    //
-    //     /// Initialize comments
-    //     // await initializeComments;
-    //
-    //     // Example 5: Navigate to the success screen or perform other actions
-    //     Provider.of<LoginProvider>(context, listen: false).setLoading(false);
-    //     Navigator.of(context).pushReplacementNamed(HomePage.id);
-    //   }
-    //
-    // } catch (e) {
-    //   Provider.of<LoginProvider>(context, listen: false).setLoading(false);
-    //   // Handle login failure
-    //   context.showSnackBar("Login failed: $e");
-    // }
-
-  }
 
   void _onForgetPasswordPressed() {
     final _emailController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
     showDialog(
       context: context,
-      builder: (dialogContext) => PassResetMailDialog(
-        formKey: _formKey,
-        emailController: _emailController,
-        onPressed: () {
-          if (!_formKey.currentState!.validate()) return;
+      builder: (dialogContext) =>
+          PassResetMailDialog(
+            formKey: _formKey,
+            emailController: _emailController,
+            onPressed: () {
+              if (!_formKey.currentState!.validate()) return;
 
-       /// ////////////////////////////////////////////////////////////////////////////////////////
-        },
-      ),
+              /// ////////////////////////////////////////////////////////////////////////////////////////
+            },
+          ),
     );
   }
 
@@ -201,7 +159,9 @@ class _LoginFormState extends State<LoginForm> {
             _isObscure
                 ? "assets/icons/auth_icons/visibility_off.svg"
                 : "assets/icons/auth_icons/visibility.svg",
-            color: Theme.of(context).primaryColor,
+            color: Theme
+                .of(context)
+                .primaryColor,
             height: screenHeight * 0.024471635,
             width: screenHeight * 0.024471635,
           ),
@@ -251,7 +211,11 @@ class _LoginFormState extends State<LoginForm> {
                 onTap: _onForgetPasswordPressed,
                 child: Text(
                   "FORGOT PASWWORD",
-                  style: Theme.of(context).textTheme.headline6?.copyWith(
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(
                     fontSize: screenHeight * 0.01111817, // 10
                   ),
                 ),
@@ -259,7 +223,8 @@ class _LoginFormState extends State<LoginForm> {
             ],
           ),
           SizedBox(height: screenHeight * 0.024459975), // 22
-          BlueButton(title: "Sign In", onPressed: _onLoginButtonPressed),
+          BlueButton(title: "Sign In",
+              onPressed: () => LoginController.instance.emailAndPasswordLogin),
         ],
       ),
     );
