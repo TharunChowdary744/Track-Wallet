@@ -4,10 +4,10 @@ import '../../ui/constants.dart';
 import '../utils/utils.dart';
 
 class BlueButton extends StatelessWidget {
-  final Function onPressed;
+  final void Function() onPressed;
   final String title;
 
-  BlueButton({required this.title, required this.onPressed})
+  BlueButton({super.key, required this.title, required this.onPressed})
       : assert(onPressed != null),
         assert(title != null);
 
@@ -19,7 +19,7 @@ class BlueButton extends StatelessWidget {
       elevation: 5.0,
       shadowColor: Theme.of(context).primaryColor.withOpacity(0.5),
       child: ElevatedButton(
-        onPressed: onPressed as void Function()?,
+        onPressed: onPressed ,
         style: ElevatedButton.styleFrom(
           primary: Theme.of(context).primaryColor,
           shape: RoundedRectangleBorder(

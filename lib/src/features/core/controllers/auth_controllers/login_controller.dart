@@ -8,9 +8,11 @@ import '../../../../repository/authentication_repository/authentication_reposito
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
-
+  final hidePassword = true.obs;
+  final privacyPolicy = true.obs;
   final email = TextEditingController();
   final password = TextEditingController();
+  GlobalKey<FormState> loginFormKey  = GlobalKey<FormState>();
 
 
   Future<void> googleLogin() async {

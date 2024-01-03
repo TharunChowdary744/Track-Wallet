@@ -32,6 +32,9 @@ dependencies:
   flutter_share: ^2.0.0
   in_app_review: ^2.0.8
   convex_bottom_bar: ^3.2.0
+  lottie: ^2.7.0
+  connectivity_plus: ^5.0.2
+  iconsax_flutter: ^1.0.0
 
 
 dev_dependencies:
@@ -64,6 +67,7 @@ flutter:
     - assets/flare/
     - assets/illustrations/
     - assets/images/
+    - assets/animations/
     - assets/
 
   fonts:

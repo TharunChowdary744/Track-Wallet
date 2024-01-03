@@ -168,7 +168,7 @@ class OnboardContent extends StatelessWidget {
                 width: 300,
                 child: Text(
                   description,
-                  style: context.textTheme.labelLarge?.copyWith(fontSize: 14),
+                  style: context.textTheme.button?.copyWith(fontSize: 14),
                   textAlign: TextAlign.center,
                 ),
               ),

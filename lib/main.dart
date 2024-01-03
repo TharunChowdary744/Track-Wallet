@@ -1,5 +1,6 @@
-import 'package:expense_tracker/src/feactures/core/screens/auth/registration_page.dart';
-import 'package:expense_tracker/src/feactures/core/screens/profile_page.dart';
+import 'package:expense_tracker/src/bindings/general_bindings.dart';
+import 'package:expense_tracker/src/features/core/screens/auth/registration_page.dart';
+import 'package:expense_tracker/src/features/core/screens/profile_page.dart';
 import 'package:expense_tracker/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:expense_tracker/src/utils/theme/theme.dart';
 import 'package:expense_tracker/src/utils/utils.dart';
@@ -9,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'src/feactures/core/screens/auth/login_page.dart';
+import 'src/features/core/screens/auth/login_page.dart';
 import 'firebase_options.dart';
 import 'home_page.dart';
 
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       theme: TcAppTheme.lightTheme,
       darkTheme: TcAppTheme.darkTheme,
       themeMode: ThemeMode.system,
+      initialBinding: GeneralBindings(),
       initialRoute: '/login',
       getPages: [
         GetPage(name: '/login', page: () => LoginPage()),

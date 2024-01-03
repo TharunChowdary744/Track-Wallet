@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../glober/logger.dart';
 import '../../exceptions/signup_email_password_failure.dart';
-import '../../feactures/core/models/user_model.dart';
+import '../../features/core/models/user_model.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -17,7 +17,7 @@ class AuthenticationRepository extends GetxController {
   void onReady() {
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+    // ever(firebaseUser, _setInitialScreen);
   }
 
   _setInitialScreen(User? user) {
@@ -31,9 +31,9 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      firebaseUser.value != null
-          ? Get.offAll(() => ('/home'))
-          : Get.offAll(() => /*WelcomeScreen()*/ ('/login'));
+      // firebaseUser.value != null
+      //     ? Get.offAll(() => ('/home'))
+      //     : Get.offAll(() => /*WelcomeScreen()*/ ('/login'));
       User? user = _auth.currentUser;
       logger.i("+++++++++++++>>>>>$user");
     } on FirebaseAuthException catch (e) {

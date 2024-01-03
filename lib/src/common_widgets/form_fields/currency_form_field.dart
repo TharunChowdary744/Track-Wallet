@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import '../../glober/logger.dart';
-import '../utils/utils.dart';
-import '../../ui/themes/validators.dart';
-import 'customFormField.dart';
+import '../../../glober/logger.dart';
+import '../../utils/utils.dart';
+import '../../utils/helpers/validators.dart';
+import 'custom_form_field.dart';
 
 class CurrencyFormField extends StatefulWidget {
   final TextEditingController defaultCurrencyCodeController;
@@ -24,7 +24,6 @@ class CurrencyFormField extends StatefulWidget {
 
 class _CurrencyFormFieldState extends State<CurrencyFormField> {
   List<Currency> _currencies = [];
-  final _validator = Validator();
 
   Future<void> _getCurrencyCodes() async {
     try {
@@ -125,7 +124,7 @@ class _CurrencyFormFieldState extends State<CurrencyFormField> {
       hintText: 'Default Currency Code',
       prefixImage: 'assets/icons/auth_icons/currency.svg',
       keyboardType: TextInputType.text,
-      validator: _validator.validateNonEmptyText,
+      validator: (value)=>TcValidator.validateEmptyText('Currency code', value!),
       obscureText: false,
       inputFormatters: [],
     );

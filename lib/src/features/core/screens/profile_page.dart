@@ -1,12 +1,12 @@
-import 'package:expense_tracker/src/feactures/core/controllers/profile_controller.dart';
-import 'package:expense_tracker/src/feactures/core/models/user_model.dart';
+import 'package:expense_tracker/src/features/core/controllers/profile_controller.dart';
+import 'package:expense_tracker/src/features/core/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../glober/logger.dart';
-import '../../../common_widgets/customFormField.dart';
+import '../../../common_widgets/form_fields/custom_form_field.dart';
 import '../../../utils/utils.dart';
-import '../../../../ui/themes/validators.dart';
-import '../../../common_widgets/currency_form_field.dart';
+import '../../../utils/helpers/validators.dart';
+import '../../../common_widgets/form_fields/currency_form_field.dart';
 
 class ProfilePage extends StatelessWidget {
   static const String id = "profile_page";
@@ -212,7 +212,7 @@ class _ProfilePageBodyState extends State<ProfilePageBody>
                                   hintText: 'First Name',
                                   prefixImage: 'assets/icons/auth_icons/firstName.svg',
                                   keyboardType: TextInputType.text,
-                                  validator: Validator().validateName,
+                                  validator: (value)=>TcValidator.validateEmptyText('First Name', value!),
                                 ),
                                 SizedBox(height: screenHeight * 0.024459975), // 22
                                 // MyProfileForm(
@@ -234,7 +234,7 @@ class _ProfilePageBodyState extends State<ProfilePageBody>
                                   hintText: 'Last Name',
                                   prefixImage: 'assets/icons/auth_icons/lastName.svg',
                                   keyboardType: TextInputType.text,
-                                  validator: Validator().validateCanBeEmptyText,
+                                  validator: (value)=>TcValidator.validateEmptyText('Last Name', value!),
                                 ),
                                 // SizedBox(height: screenHeight * 0.024459975), // 22
                                 // CustomTextFormField(

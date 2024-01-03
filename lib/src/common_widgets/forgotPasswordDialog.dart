@@ -2,8 +2,8 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import '../../ui/constants.dart';
 import '../utils/utils.dart';
-import '../../ui/themes/validators.dart';
-import 'customFormField.dart';
+import '../utils/helpers/validators.dart';
+import 'form_fields/custom_form_field.dart';
 
 class PassResetMailDialog extends StatelessWidget {
   final void Function() onPressed;
@@ -41,7 +41,7 @@ class PassResetMailDialog extends StatelessWidget {
                 prefixImage: "assets/icons/auth_icons/mail.svg",
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.done,
-                validator: Validator().validateEmail,
+                validator: (value)=>TcValidator.validateEmail(value!),
                 maxLines: 1, currentNode: FocusNode(),
               ),
               SizedBox(height: screenHeight * 0.025246941),
