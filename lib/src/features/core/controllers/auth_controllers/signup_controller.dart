@@ -11,16 +11,17 @@ import '../../../../repository/authentication_repository/authentication_reposito
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();
   final hidePassword = true.obs;
-  final privacyPolicy = true.obs;
+  final privacyPolicy = false.obs;
   final email = TextEditingController();
   final password = TextEditingController();
   final userRepo = Get.put(UserRepository());
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
   Future<void> registerUser() async {
-    logger.i('{Email-->${email.text} + Password-->${password.text}');
-    logger.i(await signupFormKey.currentState!.toString());
+
+
     try {
+
       //start Loading
       TcFullScreenLoader.openLoadingDialog(
           'We are processing your information...',
@@ -31,10 +32,11 @@ class SignUpController extends GetxController {
       if (!isConnected) return;
 
       //Form Validation
-      if (signupFormKey.currentState!.validate()) return;
+      if (!signupFormKey.currentState!.validate()) return;
 
       // Privacy Policy check
       if (!privacyPolicy.value) {
+        logger.i(!privacyPolicy.value);
         TcLoaders.warningSnackBar(
             title: 'Accept Privacy Policy',
             message:

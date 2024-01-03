@@ -20,7 +20,8 @@ class CustomTextFormField extends StatelessWidget {
     List<TextInputFormatter>? inputFormatters,
     String? initialValue,
     required TextInputAction textInputAction,
-    required String Function(String) validator,
+    // required String Function(String) validator,
+    required this.validator,
     required int maxLines,
   })  : _fieldController = fieldController,
         _hintText = hintText,
@@ -30,7 +31,7 @@ class CustomTextFormField extends StatelessWidget {
         _keyboardType = keyboardType,
         _obscureText = obscureText,
         _prefixImage = prefixImage,
-        _validator = validator,
+        // _validator = validator,
         _maxLines = maxLines,
         _suffix = suffix,
         _textCapitalization = textCapitalization,
@@ -43,7 +44,8 @@ class CustomTextFormField extends StatelessWidget {
   final String _prefixImage;
   final TextInputType _keyboardType;
   final bool? _obscureText;
-  final String Function(String) _validator;
+  // final String Function(String) _validator;
+  final FormFieldValidator<String> validator;
   final int _maxLines;
   final bool? _enabled;
   final Widget? _suffix;
@@ -74,7 +76,13 @@ class CustomTextFormField extends StatelessWidget {
         keyboardType: _keyboardType,
         obscureText: _obscureText ?? false,
         // validator: _validator,
-        validator: (value) => _validator(value!),
+        // validator: (value) => _validator(value!),
+        validator: (value) {
+          if (validator != null) {
+            return validator(value);
+          }
+          return null;
+        },
         textCapitalization: _textCapitalization ?? TextCapitalization.none,
         textAlignVertical: TextAlignVertical.center,
         style: Theme.of(context).textTheme.caption?.copyWith(

@@ -59,7 +59,7 @@ class RegistrationPage extends StatelessWidget {
                         hintText: 'Email',
                         prefixImage: 'assets/icons/auth_icons/mail.svg',
                         keyboardType: TextInputType.emailAddress,
-                        validator: (value) => TcValidator.validateEmail(value),
+                        validator: (value) => TcValidator.validateEmail(value!),
                         obscureText: false,
                       ),
                       SizedBox(height: screenHeight * 0.024459975), // 22
@@ -73,7 +73,7 @@ class RegistrationPage extends StatelessWidget {
                           prefixImage: 'assets/icons/auth_icons/lock.svg',
                           keyboardType: TextInputType.text,
                           validator: (value) =>
-                              TcValidator.validatePassword(value),
+                              TcValidator.validatePassword(value!),
                           obscureText: controller.hidePassword.value,
                           suffix: AnimatedContainer(
                             duration: Duration(milliseconds: 200),

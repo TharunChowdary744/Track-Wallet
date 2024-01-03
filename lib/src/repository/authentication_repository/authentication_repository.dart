@@ -26,16 +26,12 @@ class AuthenticationRepository extends GetxController {
         : Get.offAll(() => ('/home') /*WelcomeScreen()*/);
   }
 
+
+  // -----------------------------------------Email & Password sign-in----------------------------------------------
   Future<void> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      // firebaseUser.value != null
-      //     ? Get.offAll(() => ('/home'))
-      //     : Get.offAll(() => /*WelcomeScreen()*/ ('/login'));
-      User? user = _auth.currentUser;
-      logger.i("+++++++++++++>>>>>$user");
+      await _auth.createUserWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
       logger.w("===fffffff====>>>>>${ex.message}");
@@ -52,6 +48,32 @@ class AuthenticationRepository extends GetxController {
       throw ex;
     }
   }
+  // Future<void> createUserWithEmailAndPassword(
+  //     String email, String password) async {
+  //   try {
+  //     await _auth.createUserWithEmailAndPassword(
+  //         email: email, password: password);
+  //     // firebaseUser.value != null
+  //     //     ? Get.offAll(() => ('/home'))
+  //     //     : Get.offAll(() => /*WelcomeScreen()*/ ('/login'));
+  //     User? user = _auth.currentUser;
+  //     logger.i("+++++++++++++>>>>>$user");
+  //   } on FirebaseAuthException catch (e) {
+  //     final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
+  //     logger.w("===fffffff====>>>>>${ex.message}");
+  //     Get.snackbar('Error', ex.message.toString(),
+  //         snackPosition: SnackPosition.BOTTOM);
+  //
+  //     throw ex;
+  //   } catch (_) {
+  //     final ex = SignUpWithEmailAndPasswordFailure.code("");
+  //     logger.w("===-------====>>>>>${ex.message}");
+  //     Get.snackbar('Error', ex.message.toString(),
+  //         snackPosition: SnackPosition.BOTTOM);
+  //
+  //     throw ex;
+  //   }
+  // }
 
   Future<void> loginWithEmailAndPassword(String email, String password) async {
     try {

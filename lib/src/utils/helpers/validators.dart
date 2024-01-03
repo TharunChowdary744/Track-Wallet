@@ -1,19 +1,14 @@
-import 'package:expense_tracker/src/utils/utils.dart';
-import '../../../glober/logger.dart';
 
 class TcValidator {
 
   static String validateEmptyText(String fieldName, String value) {
-    logger.i('Empty Text');
     if (value == null || value.isEmpty) {
       return "$fieldName is required.";
     }
     return '';
   }
 
-  static String validateEmail(String value) {
-    logger.i(value);
-
+  static String? validateEmail(String value) {
     if (value == null || value.isEmpty) return "Email is required";
 
     final String pattern =
@@ -23,10 +18,10 @@ class TcValidator {
     if (!regex.hasMatch(value)) {
       return "Invalid Email address";
     }
-    return '';
+    return null;
   }
 
-  static String validatePassword(String value) {
+  static String? validatePassword(String value) {
     if (value == null || value.isEmpty)
       return "Password is required";
     else if (value.length < 8)
@@ -34,7 +29,7 @@ class TcValidator {
     else if (value.contains(" "))
       return "Password should not contain spaces";
     else
-      return '';
+      return null;
   }
 
   static String? validateConfirmPassword(
