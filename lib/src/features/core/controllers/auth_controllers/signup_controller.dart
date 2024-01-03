@@ -18,10 +18,7 @@ class SignUpController extends GetxController {
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
   Future<void> registerUser() async {
-
-
     try {
-
       //start Loading
       TcFullScreenLoader.openLoadingDialog(
           'We are processing your information...',

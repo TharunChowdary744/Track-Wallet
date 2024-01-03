@@ -1,8 +1,13 @@
+import 'package:expense_tracker/src/exceptions/platform_exceptions.dart';
 import 'package:expense_tracker/src/repository/user_repository/user_repository.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../glober/logger.dart';
+import '../../exceptions/firebase_auth_exceptions.dart';
+import '../../exceptions/firebase_exceptions.dart';
+import '../../exceptions/format_exceptions.dart';
 import '../../exceptions/signup_email_password_failure.dart';
 import '../../features/core/models/user_model.dart';
 
@@ -28,26 +33,44 @@ class AuthenticationRepository extends GetxController {
 
 
   // -----------------------------------------Email & Password sign-in----------------------------------------------
-  Future<void> createUserWithEmailAndPassword(
-      String email, String password) async {
+
+
+  ///[EmailAuthentication] - REGISTER
+  Future<void> createUserWithEmailAndPassword(String email,
+      String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
-      logger.w("===fffffff====>>>>>${ex.message}");
-      Get.snackbar('Error', ex.message.toString(),
-          snackPosition: SnackPosition.BOTTOM);
-
-      throw ex;
-    } catch (_) {
-      final ex = SignUpWithEmailAndPasswordFailure.code("");
-      logger.w("===-------====>>>>>${ex.message}");
-      Get.snackbar('Error', ex.message.toString(),
-          snackPosition: SnackPosition.BOTTOM);
-
-      throw ex;
+      throw TcFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TcFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TcFormatException();
+    } on PlatformException catch (e) {
+      throw TcPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
     }
   }
+
+  ///[EmailVerification] - MAIL VERIFICATION
+  Future<void> sendEmailVerification() async {
+    try {
+      await _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      throw TcFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TcFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TcFormatException();
+    } on PlatformException catch (e) {
+      throw TcPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
   // Future<void> createUserWithEmailAndPassword(
   //     String email, String password) async {
   //   try {
@@ -86,24 +109,25 @@ class AuthenticationRepository extends GetxController {
   }
 
   Future<UserCredential?> loginInWithGoogle() async {
-
     try {
       final controller = await Get.put(UserRepository());
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+      await googleUser?.authentication;
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
       // Once signed in, return the UserCredential
-      UserCredential userCredential =  await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithCredential(credential);
       // Access user data
       User? user = userCredential.user;
 
-      print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      print(
+          "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
       // logger.e(user);
       if (user != null) {
         final _user = UserModel(
@@ -114,13 +138,15 @@ class AuthenticationRepository extends GetxController {
           uid: user.uid,
         );
         UserRepository.instance.createUser(_user);
-        print("============================================================================");
+        print(
+            "============================================================================");
         return userCredential;
       }
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (error) {
       logger.w("Google Sign-In Error: ${error.toString()}");
-      print("----------------------------------------------------------------------------");
+      print(
+          "----------------------------------------------------------------------------");
     }
   }
 
