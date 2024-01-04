@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:expense_tracker/src/utils/constants/text_strings.dart';
 import 'package:expense_tracker/src/utils/loaders/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class VerifyEmailController extends GetxController {
       await AuthenticationRepository.instance.sendEmailVerification();
       TcLoaders.errorSnackBar(
           title: 'Email Sent',
-          message: 'Please Check your inbox and verify your email.');
+          message: TcTexts.emailSentText);
     } catch (e) {
       TcLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }

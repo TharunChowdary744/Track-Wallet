@@ -142,8 +142,7 @@ class AuthenticationRepository extends GetxController {
           uid: user.uid,
         );
         // UserRepository.instance.createUser(_user);
-        print(
-            "============================================================================");
+        print("============================================================================");
         return userCredential;
       }
       return await FirebaseAuth.instance.signInWithCredential(credential);

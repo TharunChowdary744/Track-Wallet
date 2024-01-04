@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../../../../common/blueButton.dart';
 import '../../../../utils/utils.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({Key? key}) : super(key: key);
+
+  const VerifyEmailScreen({super.key, this.email});
+
+  final String? email;
+
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(const VerifyEmailScreen());
     return Scaffold(
       body: Center(
         child: Container(

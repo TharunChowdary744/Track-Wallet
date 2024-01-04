@@ -1,3 +1,4 @@
+import 'package:expense_tracker/src/utils/constants/image_strings.dart';
 import 'package:expense_tracker/src/utils/helpers/network_manager.dart';
 import 'package:expense_tracker/src/utils/loaders/loader.dart';
 import 'package:expense_tracker/src/utils/popups/full_screen_loader.dart';
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 import '../../../../data/authentication/authentication_repository.dart';
 import '../../../../data/user/user_repository.dart';
 import '../../models/user_model.dart';
-import '../../screens/signup/validate_email.dart';
+import '../../screens/signup/verify_email.dart';
 
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();
@@ -25,10 +26,11 @@ class SignUpController extends GetxController {
       //start Loading
       TcFullScreenLoader.openLoadingDialog(
           'We are processing your information...',
-          'assets/animations/loadingData.json');
+          TcImages.loadingDataImage);
 
       //Check internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
+
       if (!isConnected) return;
 
       //Form Validation
@@ -59,18 +61,18 @@ class SignUpController extends GetxController {
 
       final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
-      
+      TcFullScreenLoader.stopLoading();
       TcLoaders.successSnackBar(title: 'Congratulatons', message:'Your account has been created! Verify email to continue.');
 
-      Get.to(()=>VerifyEmailScreen());
+      Get.to(()=>const VerifyEmailScreen());
 
       
       // Show success Message
     } catch (e) {
       TcLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
-    } finally {
-      TcFullScreenLoader.stopLoading();
-    }
+    }//  finally {
+    //   // TcFullScreenLoader.stopLoading();
+    // }
   }
 
   // Future<void> createUser(UserModel user) async {

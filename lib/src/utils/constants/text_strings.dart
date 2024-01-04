@@ -11,5 +11,6 @@ class TcTexts {
 
   // Auth
   static const String signUpHeading = 'Let\'s create your account';
+  static const String emailSentText = 'Please Check your inbox and verify your email.';
 
 }

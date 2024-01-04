@@ -11,4 +11,7 @@ class TcImages {
   static const String textFieldName = 'assets/icons/auth_icons/firstName.svg';
   static const String textFieldPassword = 'assets/icons/auth_icons/lock.svg';
 
+  // Loading images
+  static const String loadingDataImage = 'assets/animations/loadingData.json';
+
 }
