@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
+import '../helpers/helper_functions.dart';
+
 class TcLoaders {
   static hideSnackBar() =>
       ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
@@ -17,9 +19,9 @@ class TcLoaders {
         margin: const EdgeInsets.symmetric(horizontal: 30),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          // color: THelperFunctions.isDarkMode(Get.context!)
-          //     ? TcColors().darkerGrey.withOpacity(0.9)
-          //     : TcColors().grey.withOpacity(0.9)
+          color: TcHelperFunctions.isDarkMode(Get.context!)
+              ? TcColors.darkerGrey.withOpacity(0.9)
+              : TcColors.grey.withOpacity(0.9)
         ),
         child: Center(
           child: Text(

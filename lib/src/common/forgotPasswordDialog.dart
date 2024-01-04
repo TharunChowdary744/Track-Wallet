@@ -2,7 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import '../../ui/constants.dart';
 import '../utils/utils.dart';
-import '../utils/helpers/validators.dart';
+import '../utils/validators/validators.dart';
 import 'form_fields/custom_form_field.dart';
 
 class PassResetMailDialog extends StatelessWidget {

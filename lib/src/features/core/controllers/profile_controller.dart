@@ -1,6 +1,7 @@
-import 'package:expense_tracker/src/repository/authentication_repository/authentication_repository.dart';
-import 'package:expense_tracker/src/repository/user_repository/user_repository.dart';
+import 'package:expense_tracker/src/repository/user.repository/user_repository.dart';
 import 'package:get/get.dart';
+
+import '../../../data/authentication.repository/authentication_repository.dart';
 
 class ProfileController extends GetxController{
   static ProfileController get instance => Get.find();

@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import '../../../glober/logger.dart';
+import '../../utils/logger/logger.dart';
 import '../../utils/utils.dart';
-import '../../utils/helpers/validators.dart';
+import '../../utils/validators/validators.dart';
 import 'custom_form_field.dart';
 
 class CurrencyFormField extends StatefulWidget {
@@ -43,7 +43,6 @@ class _CurrencyFormFieldState extends State<CurrencyFormField> {
         _currencies = _currList;
       });
     } catch (e) {
-      logger.e("Error loading currency data: $e");
     }
   }
 
@@ -113,7 +112,6 @@ class _CurrencyFormFieldState extends State<CurrencyFormField> {
       suffix: IconButton(
         icon: Icon(Icons.arrow_drop_down),
         onPressed: () {
-          logger.wtf("Currency Selector");
           showDialog(
             context: context,
             builder: (context) => _currencySelector(),

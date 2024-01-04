@@ -1,14 +1,14 @@
-import 'package:expense_tracker/src/features/core/controllers/auth_controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../../../common_widgets/blueButton.dart';
-import '../../../../common_widgets/forgotPasswordDialog.dart';
-import '../../../../common_widgets/form_fields/custom_form_field.dart';
-import '../../../../common_widgets/googleButton.dart';
+import '../../../../common/blueButton.dart';
+import '../../../../common/forgotPasswordDialog.dart';
+import '../../../../common/form_fields/custom_form_field.dart';
+import '../../../../common/googleButton.dart';
 import '../../../../utils/utils.dart';
-import '../../../../utils/helpers/validators.dart';
+import '../../../../utils/validators/validators.dart';
+import '../../controllers/login/login_controller.dart';
 
 class LoginPage extends StatelessWidget {
   @override

@@ -4,10 +4,9 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:in_app_review/in_app_review.dart';
 import '../../../../../ui/constants.dart';
-import '../../../../repository/authentication_repository/authentication_repository.dart';
+import '../../../../data/authentication.repository/authentication_repository.dart';
 import '../../../../utils/utils.dart';
-import '../../../../common_widgets/drawer_tile.dart';
-import '../auth/login_page.dart';
+import '../../../../common/drawer_tile.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({required this.animationController}) : assert(animationController != null);

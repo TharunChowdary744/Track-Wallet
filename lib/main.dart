@@ -1,47 +1,22 @@
-import 'package:expense_tracker/src/bindings/general_bindings.dart';
-import 'package:expense_tracker/src/features/core/screens/auth/registration_page.dart';
-import 'package:expense_tracker/src/features/core/screens/profile_page.dart';
-import 'package:expense_tracker/src/repository/authentication_repository/authentication_repository.dart';
-import 'package:expense_tracker/src/utils/theme/theme.dart';
-import 'package:expense_tracker/src/utils/utils.dart';
+import 'package:expense_tracker/src/data/authentication.repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'src/features/core/screens/auth/login_page.dart';
+import 'package:get_storage/get_storage.dart';
+import 'app.dart';
 import 'firebase_options.dart';
-import 'home_page.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  await GetStorage.init();
+
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,
   ).then((value) => Get.put(AuthenticationRepository()));
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    initializeUtils(context);
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: TcAppTheme.lightTheme,
-      darkTheme: TcAppTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      initialBinding: GeneralBindings(),
-      initialRoute: '/login',
-      getPages: [
-        GetPage(name: '/login', page: () => LoginPage()),
-        GetPage(name: '/registration', page: () => RegistrationPage()),
-        GetPage(name: '/home', page: () => HomePage()),
-        GetPage(name: '/profile', page: () => ProfilePage()),
-      ],
-    );
-  }
-}

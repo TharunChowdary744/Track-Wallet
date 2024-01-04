@@ -1,12 +1,11 @@
-import 'package:expense_tracker/glober/logger.dart';
 import 'package:expense_tracker/src/utils/helpers/network_manager.dart';
-import 'package:expense_tracker/src/features/core/models/user_model.dart';
-import 'package:expense_tracker/src/repository/user_repository/user_repository.dart';
 import 'package:expense_tracker/src/utils/loaders/loader.dart';
 import 'package:expense_tracker/src/utils/popups/full_screen_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import '../../../../repository/authentication_repository/authentication_repository.dart';
+
+import '../../../../repository/user.repository/user_repository.dart';
+import '../../models/user_model.dart';
 
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();
@@ -33,7 +32,6 @@ class SignUpController extends GetxController {
 
       // Privacy Policy check
       if (!privacyPolicy.value) {
-        logger.i(!privacyPolicy.value);
         TcLoaders.warningSnackBar(
             title: 'Accept Privacy Policy',
             message:

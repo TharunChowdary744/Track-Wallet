@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:expense_tracker/glober/logger.dart';
-import 'package:expense_tracker/src/features/core/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../features/authentication/models/user_model.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
@@ -30,7 +30,6 @@ class UserRepository extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.redAccent.withOpacity(0.1),
             colorText: Colors.red);
-        logger.e(error.toString());
       });}
   }
 

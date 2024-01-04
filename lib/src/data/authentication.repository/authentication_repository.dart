@@ -1,43 +1,50 @@
 import 'package:expense_tracker/src/exceptions/platform_exceptions.dart';
-import 'package:expense_tracker/src/repository/user_repository/user_repository.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../../../glober/logger.dart';
+import '../../features/authentication/models/user_model.dart';
+import '../../repository/user.repository/user_repository.dart';
+import '../../utils/logger/logger.dart';
+import '../../features/authentication/screens/onboarding/onboarding.dart';
 import '../../exceptions/firebase_auth_exceptions.dart';
 import '../../exceptions/firebase_exceptions.dart';
 import '../../exceptions/format_exceptions.dart';
-import '../../exceptions/signup_email_password_failure.dart';
-import '../../features/core/models/user_model.dart';
+import '../../features/authentication/screens/login/login_page.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
 // Variables
+  final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
 
   @override
   void onReady() {
+    FlutterNativeSplash.remove();
+    screenRedirect();
+
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
     // ever(firebaseUser, _setInitialScreen);
   }
 
-  _setInitialScreen(User? user) {
-    user == null
-        ? Get.offAll(() => ('/login'))
-        : Get.offAll(() => ('/home') /*WelcomeScreen()*/);
+  screenRedirect() async {
+    deviceStorage.writeIfNull('isFirstTime', true);
+    print('1111111--------------->>>>${deviceStorage.read('isFirstTime')}');
+    deviceStorage.read('isFirstTime') != true
+        ? Get.offAll(() => LoginPage())
+        : Get.offAll(() => const OnBoardingScreen());
   }
-
 
   // -----------------------------------------Email & Password sign-in----------------------------------------------
 
-
   ///[EmailAuthentication] - REGISTER
-  Future<void> createUserWithEmailAndPassword(String email,
-      String password) async {
+  Future<void> createUserWithEmailAndPassword(
+      String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -101,9 +108,7 @@ class AuthenticationRepository extends GetxController {
   Future<void> loginWithEmailAndPassword(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      logger.i("+++++++++++++>>>>>${_auth.currentUser}");
     } on FirebaseAuthException catch (e) {
-      logger.w("==============>>>>>${e.toString()}");
       Get.snackbar('Error', e.toString(), snackPosition: SnackPosition.BOTTOM);
     }
   }
@@ -114,15 +119,15 @@ class AuthenticationRepository extends GetxController {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
+          await googleUser?.authentication;
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
       // Once signed in, return the UserCredential
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithCredential(credential);
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
       // Access user data
       User? user = userCredential.user;
 
@@ -144,7 +149,6 @@ class AuthenticationRepository extends GetxController {
       }
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (error) {
-      logger.w("Google Sign-In Error: ${error.toString()}");
       print(
           "----------------------------------------------------------------------------");
     }

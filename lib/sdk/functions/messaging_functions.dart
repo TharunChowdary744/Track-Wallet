@@ -4,7 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../glober/logger.dart';
+import '../../src/utils/logger/logger.dart';
 import '../../src/utils/utils.dart';
 
 class NotificationHandler {
@@ -21,7 +21,6 @@ class NotificationHandler {
       SetOptions(merge: true),
     );
 
-    logger.v("Device Token Uploaded");
     return _token;
   }
 
@@ -34,7 +33,6 @@ class NotificationHandler {
       SetOptions(merge: true),
     );
 
-    logger.v("Device Token Cleared");
   }
 
   /// Configure the app for FCM notifications
@@ -60,12 +58,10 @@ class NotificationHandler {
       );
     }
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      logger.v("Notification Recieved");
 
       // final String data = message['notification']['body'].toString();
       final String data = message.notification?.body ?? "";
       _showToast("$data \nRefresh, to see the change");
-      logger.v("Toast Shown");
     });
   }
 }

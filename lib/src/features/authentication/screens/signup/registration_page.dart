@@ -1,15 +1,15 @@
-import 'package:expense_tracker/src/utils/helpers/validators.dart';
+import 'package:expense_tracker/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../../common_widgets/blueButton.dart';
-import '../../../../common_widgets/form_fields/custom_form_field.dart';
+import '../../../../common/blueButton.dart';
+import '../../../../common/form_fields/custom_form_field.dart';
 import '../../../../utils/utils.dart';
-import '../../../../common_widgets/googleButton.dart';
-import '../../controllers/auth_controllers/login_controller.dart';
-import '../../controllers/auth_controllers/signup_controller.dart';
+import '../../../../common/googleButton.dart';
+import '../../controllers/login/login_controller.dart';
+import '../../controllers/signup/signup_controller.dart';
 
 class RegistrationPage extends StatelessWidget {
   @override

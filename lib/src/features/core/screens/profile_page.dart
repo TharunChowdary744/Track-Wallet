@@ -1,12 +1,11 @@
 import 'package:expense_tracker/src/features/core/controllers/profile_controller.dart';
-import 'package:expense_tracker/src/features/core/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../glober/logger.dart';
-import '../../../common_widgets/form_fields/custom_form_field.dart';
+import '../../../common/form_fields/custom_form_field.dart';
 import '../../../utils/utils.dart';
-import '../../../utils/helpers/validators.dart';
-import '../../../common_widgets/form_fields/currency_form_field.dart';
+import '../../../utils/validators/validators.dart';
+import '../../../common/form_fields/currency_form_field.dart';
+import '../../authentication/models/user_model.dart';
 
 class ProfilePage extends StatelessWidget {
   static const String id = "profile_page";
@@ -45,7 +44,6 @@ class _ProfilePageBodyState extends State<ProfilePageBody>
     _opacityAnimation = Tween<double>(begin: 0.0, end: 0.25).animate(_curve);
     _photoUrlController.addListener(() {
       setState(() {
-        logger.d("Avatar Changed");
       });
     });
 

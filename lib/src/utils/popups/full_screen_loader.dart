@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../common_widgets/loader/animation_loader.dart';
+import '../../common/loader/animation_loader.dart';
 
 class TcFullScreenLoader {
   static void openLoadingDialog(String text, String animation) {

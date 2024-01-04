@@ -1,9 +1,11 @@
 import 'dart:async';
 
-import 'package:expense_tracker/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:expense_tracker/src/utils/loaders/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+
+import '../../../../data/authentication.repository/authentication_repository.dart';
+
 
 class VerifyEmailController extends GetxController {
   static VerifyEmailController get instance => Get.find();
