@@ -4,7 +4,7 @@ import 'package:expense_tracker/src/utils/loaders/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-import '../../../../data/authentication.repository/authentication_repository.dart';
+import '../../../../data/authentication/authentication_repository.dart';
 
 
 class VerifyEmailController extends GetxController {

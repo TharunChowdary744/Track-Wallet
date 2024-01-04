@@ -85,7 +85,7 @@ class CustomTextFormField extends StatelessWidget {
         },
         textCapitalization: _textCapitalization ?? TextCapitalization.none,
         textAlignVertical: TextAlignVertical.center,
-        style: Theme.of(context).textTheme.caption?.copyWith(
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
           fontSize: screenHeight * 0.015565438, // 14
         ),
         inputFormatters: _inputFormatters,
@@ -94,7 +94,7 @@ class CustomTextFormField extends StatelessWidget {
           border: kInputBorderStyle,
           focusedBorder: kInputBorderStyle,
           enabledBorder: kInputBorderStyle,
-          hintStyle: Theme.of(context).textTheme.caption?.copyWith(
+          hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
             fontSize: screenHeight * 0.015565438, // 14
           ),
           contentPadding: EdgeInsets.symmetric(
@@ -195,7 +195,7 @@ class CustomTextFormField extends StatelessWidget {
 //         validator: (value) => _validator(value!),
 //         textCapitalization: _textCapitalization ?? TextCapitalization.none,
 //         textAlignVertical: TextAlignVertical.center,
-//         style: Theme.of(context).textTheme.caption?.copyWith(
+//         style: Theme.of(context).textTheme.bodySmall?.copyWith(
 //           fontSize: screenHeight * 0.015565438, // 14
 //         ),
 //         inputFormatters: _inputFormatters,
@@ -204,7 +204,7 @@ class CustomTextFormField extends StatelessWidget {
 //           border: kInputBorderStyle,
 //           focusedBorder: kInputBorderStyle,
 //           enabledBorder: kInputBorderStyle,
-//           hintStyle: Theme.of(context).textTheme.caption?.copyWith(
+//           hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
 //             fontSize: screenHeight * 0.015565438, // 14
 //           ),
 //           contentPadding: EdgeInsets.symmetric(

@@ -32,7 +32,7 @@ class BlueButton extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: Theme.of(context).textTheme.button?.copyWith(
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
               fontSize: screenHeight * 0.017789072, // 16
             ),
           ),

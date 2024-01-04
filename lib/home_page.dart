@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
         Fluttertoast.showToast(
           msg: "Press again to exit",
-          textColor: Theme.of(context).textTheme.bodyText1?.color,
+          textColor: Theme.of(context).textTheme.bodyLarge?.color,
           backgroundColor: Theme.of(context).backgroundColor,
         );
 

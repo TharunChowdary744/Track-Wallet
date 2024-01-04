@@ -4,7 +4,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:in_app_review/in_app_review.dart';
 import '../../../../../ui/constants.dart';
-import '../../../../data/authentication.repository/authentication_repository.dart';
+import '../../../../data/authentication/authentication_repository.dart';
 import '../../../../utils/utils.dart';
 import '../../../../common/drawer_tile.dart';
 
@@ -72,7 +72,7 @@ class TopDrawer extends StatelessWidget {
             const SizedBox(height: 10.0),
             Text(
               " JustSplit.",
-              style: Theme.of(context).textTheme.headline2?.copyWith(
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 fontSize: screenHeight * 0.040801779,
                 fontWeight: FontWeight.bold,
               ),
@@ -166,20 +166,20 @@ class BottomDrawer extends StatelessWidget {
       children: <Widget>[
         Text(
           "Made with ♥ in India",
-          style: Theme.of(context).textTheme.headline2?.copyWith(
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(
             fontSize: screenHeight * 0.013341804,
           ),
         ),
         Text(
           "Copyright \u00A9 2021 Dot.Studios LLC",
-          style: Theme.of(context).textTheme.headline2?.copyWith(
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(
             fontSize: screenHeight * 0.013341804,
           ),
         ),
         const SizedBox(height: 10),
         Text(
           tcAppVersion,
-          style: Theme.of(context).textTheme.headline2?.copyWith(
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(
             fontSize: screenHeight * 0.013341804,
           ),
         ),

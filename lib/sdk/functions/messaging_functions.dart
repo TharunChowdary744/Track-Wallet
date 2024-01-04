@@ -43,7 +43,7 @@ class NotificationHandler {
         textColor: Theme
             .of(context)
             .textTheme
-            .bodyText2
+            .bodyMedium
             ?.color,
         backgroundColor: Theme
             .of(context)

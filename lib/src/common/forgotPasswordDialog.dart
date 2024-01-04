@@ -22,7 +22,7 @@ class PassResetMailDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: kBorderRadius),
       title: Text(
         "Forgot Password",
-        style: Theme.of(context).textTheme.headline1?.copyWith(
+        style: Theme.of(context).textTheme.displayLarge?.copyWith(
               fontSize: screenHeight * 0.030685206,
             ),
       ),
@@ -47,7 +47,7 @@ class PassResetMailDialog extends StatelessWidget {
               SizedBox(height: screenHeight * 0.025246941),
               Text(
                 "A link will be sent to your registered email Id. Click on the link to reset your password",
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               SizedBox(height: screenHeight * 0.025),
               // ElevatedButton(

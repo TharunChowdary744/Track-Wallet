@@ -1,7 +1,7 @@
 import 'package:expense_tracker/src/bindings/general_bindings.dart';
 import 'package:expense_tracker/src/features/authentication/screens/login/login_page.dart';
 import 'package:expense_tracker/src/features/authentication/screens/onboarding/onboarding.dart';
-import 'package:expense_tracker/src/features/authentication/screens/signup/registration_page.dart';
+import 'package:expense_tracker/src/features/authentication/screens/signup/signup.dart';
 import 'package:expense_tracker/src/features/core/screens/profile_page.dart';
 import 'package:expense_tracker/src/utils/constants/colors.dart';
 import 'package:expense_tracker/src/utils/theme/theme.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       initialBinding: GeneralBindings(),
       home: Scaffold(
-        backgroundColor: TcColors.primary,
+        backgroundColor: TcColors.white,
         body: Center(
           child: CircularProgressIndicator(
             color: Colors.white,
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       ),
       getPages: [
         GetPage(name: '/login', page: () => LoginPage()),
-        GetPage(name: '/registration', page: () => RegistrationPage()),
+        GetPage(name: '/registration', page: () => SignUpPage()),
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/profile', page: () => ProfilePage()),
       ],

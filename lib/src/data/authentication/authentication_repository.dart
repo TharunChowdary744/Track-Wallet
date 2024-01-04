@@ -6,13 +6,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../features/authentication/models/user_model.dart';
-import '../../repository/user.repository/user_repository.dart';
 import '../../utils/logger/logger.dart';
 import '../../features/authentication/screens/onboarding/onboarding.dart';
 import '../../exceptions/firebase_auth_exceptions.dart';
 import '../../exceptions/firebase_exceptions.dart';
 import '../../exceptions/format_exceptions.dart';
 import '../../features/authentication/screens/login/login_page.dart';
+import '../user/user_repository.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -27,14 +27,13 @@ class AuthenticationRepository extends GetxController {
     FlutterNativeSplash.remove();
     screenRedirect();
 
-    firebaseUser = Rx<User?>(_auth.currentUser);
-    firebaseUser.bindStream(_auth.userChanges());
+    // firebaseUser = Rx<User?>(_auth.currentUser);
+    // firebaseUser.bindStream(_auth.userChanges());
     // ever(firebaseUser, _setInitialScreen);
   }
 
   screenRedirect() async {
     deviceStorage.writeIfNull('isFirstTime', true);
-    print('1111111--------------->>>>${deviceStorage.read('isFirstTime')}');
     deviceStorage.read('isFirstTime') != true
         ? Get.offAll(() => LoginPage())
         : Get.offAll(() => const OnBoardingScreen());
@@ -43,10 +42,10 @@ class AuthenticationRepository extends GetxController {
   // -----------------------------------------Email & Password sign-in----------------------------------------------
 
   ///[EmailAuthentication] - REGISTER
-  Future<void> createUserWithEmailAndPassword(
+  Future<UserCredential> registerWithEmailAndPassword(
       String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      return await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
       throw TcFirebaseAuthException(e.code).message;
@@ -142,7 +141,7 @@ class AuthenticationRepository extends GetxController {
           photoURL: user.photoURL ?? "",
           uid: user.uid,
         );
-        UserRepository.instance.createUser(_user);
+        // UserRepository.instance.createUser(_user);
         print(
             "============================================================================");
         return userCredential;

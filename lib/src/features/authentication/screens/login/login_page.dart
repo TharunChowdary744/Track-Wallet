@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 Text(
                   "Welcome",
-                  style: Theme.of(context).textTheme.headline1?.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
                         fontSize: screenHeight * 0.042249047, //38
                       ),
                 ),
@@ -114,7 +114,7 @@ class LoginPage extends StatelessWidget {
                             onTap: _onForgetPasswordPressed,
                             child: Text(
                               "FORGOT PASWWORD",
-                              style: Theme.of(context).textTheme.headline6?.copyWith(
+                              style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                 fontSize: screenHeight * 0.01111817, // 10
                               ),
                             ),
@@ -138,7 +138,7 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Text(
                       "or connect with",
-                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             fontSize: screenHeight * 0.01111817, // 10
                           ),
                     ),
@@ -161,7 +161,7 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Text(
                       "Don't have an account? ",
-                      style: Theme.of(context).textTheme.caption?.copyWith(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: screenHeight * 0.01111817, // 10
                             fontWeight: FontWeight.w600,
                           ),
@@ -170,7 +170,7 @@ class LoginPage extends StatelessWidget {
                       onTap: _onSignUpPressed,
                       child: Text(
                         "Sign Up",
-                        style: Theme.of(context).textTheme.headline6?.copyWith(
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontSize: screenHeight * 0.01111817, // 10
                             ),
                       ),

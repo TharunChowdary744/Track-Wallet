@@ -20,7 +20,7 @@
 //       shape: RoundedRectangleBorder(borderRadius: tcBorderRadius),
 //       title: Text(
 //         "Select your avatar",
-//         style: Theme.of(context).textTheme.headline1?.copyWith(
+//         style: Theme.of(context).textTheme.displayLarge?.copyWith(
 //               fontSize: screenHeight * 0.025,
 //             ),
 //       ),

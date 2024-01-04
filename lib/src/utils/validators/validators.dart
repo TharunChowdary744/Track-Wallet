@@ -91,13 +91,14 @@ class TcValidator {
       return '';
   }
 
-  String validateName(String name) {
-    if (name.isEmpty)
-      return "This field cannot be empty";
-    else if (name.contains(RegExp(r'[0-9]')))
+  static String?  validateName(String? value, String? fieldName) {
+    if (value == null || value.isEmpty)
+      return "$fieldName is required.";
+      // return "This field cannot be empty";
+    else if (value.contains(RegExp(r'[0-9]')))
       return "Enter a valid name";
     else
-      return '';
+      return null;
   }
 
   ///  To validate normal text which cannot be empty

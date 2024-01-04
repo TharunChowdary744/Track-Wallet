@@ -25,7 +25,7 @@ class OnBoardingPage extends StatelessWidget {
               image: AssetImage(image)),
           Text(
             title,
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
           SizedBox(
@@ -33,7 +33,7 @@ class OnBoardingPage extends StatelessWidget {
           ),
           Text(
             subTitle,
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
         ],

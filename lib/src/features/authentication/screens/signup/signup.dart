@@ -1,3 +1,6 @@
+import 'package:expense_tracker/src/utils/constants/image_strings.dart';
+import 'package:expense_tracker/src/utils/constants/sizes.dart';
+import 'package:expense_tracker/src/utils/constants/text_strings.dart';
 import 'package:expense_tracker/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,11 +14,13 @@ import '../../../../common/googleButton.dart';
 import '../../controllers/login/login_controller.dart';
 import '../../controllers/signup/signup_controller.dart';
 
-class RegistrationPage extends StatelessWidget {
+class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _emailNode = FocusNode();
     final _passwordNode = FocusNode();
+    final _firstNameNode = FocusNode();
+    final _lastNameNode = FocusNode();
 
     void _onSignInPressed() {
       Navigator.of(context).pushReplacementNamed('/login');
@@ -37,9 +42,9 @@ class RegistrationPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Sign Up",
-                  style: Theme.of(context).textTheme.headline1?.copyWith(
-                        fontSize: screenHeight * 0.042249047, //38
+                  TcTexts.signUpHeading,
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                        fontSize: screenHeight * 0.035, //38
                       ),
                 ),
                 SizedBox(
@@ -50,6 +55,36 @@ class RegistrationPage extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomTextFormField(
+                                fieldController: controller.firstName,
+                                hintText: 'First Name',
+                                prefixImage: TcImages.textFieldName,
+                                keyboardType: TextInputType.text,
+                                currentNode: _firstNameNode,
+                                textInputAction: TextInputAction.next,
+                                validator: (value) => TcValidator.validateName(
+                                    value!, 'First Name'),
+                                maxLines: 1),
+                          ),
+                          SizedBox(width: TcSizes.spaceBtwItems-10,),
+                          Expanded(
+                            child: CustomTextFormField(
+                                fieldController: controller.lastName,
+                                hintText: "Last Name",
+                                prefixImage: TcImages.textFieldName,
+                                keyboardType: TextInputType.text,
+                                currentNode: _lastNameNode,
+                                textInputAction: TextInputAction.next,
+                                validator: (value) =>
+                                    TcValidator.validateName(value!, 'Last Name'),
+                                maxLines: 1),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: TcSizes.spaceBtwItems-3),
                       CustomTextFormField(
                         currentNode: _emailNode,
                         nextNode: _passwordNode,
@@ -57,12 +92,12 @@ class RegistrationPage extends StatelessWidget {
                         maxLines: 1,
                         fieldController: controller.email,
                         hintText: 'Email',
-                        prefixImage: 'assets/icons/auth_icons/mail.svg',
+                        prefixImage: TcImages.textFieldMail,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) => TcValidator.validateEmail(value!),
                         obscureText: false,
                       ),
-                      SizedBox(height: screenHeight * 0.024459975), // 22
+                      SizedBox(height: TcSizes.spaceBtwItems-3),
                       Obx(
                         () => CustomTextFormField(
                           currentNode: _passwordNode,
@@ -70,7 +105,7 @@ class RegistrationPage extends StatelessWidget {
                           maxLines: 1,
                           fieldController: controller.password,
                           hintText: 'Password',
-                          prefixImage: 'assets/icons/auth_icons/lock.svg',
+                          prefixImage: TcImages.textFieldPassword,
                           keyboardType: TextInputType.text,
                           validator: (value) =>
                               TcValidator.validatePassword(value!),
@@ -108,7 +143,7 @@ class RegistrationPage extends StatelessWidget {
                           Text(
                             "I accept ",
                             style:
-                                Theme.of(context).textTheme.headline3?.copyWith(
+                                Theme.of(context).textTheme.displaySmall?.copyWith(
                                       fontSize: screenHeight * 0.01111817, // 10
                                     ),
                           ),
@@ -120,7 +155,7 @@ class RegistrationPage extends StatelessWidget {
                               "Terms and Conditions",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6
+                                  .titleLarge
                                   ?.copyWith(
                                     fontSize: screenHeight * 0.01111817, // 10
                                   ),
@@ -143,7 +178,7 @@ class RegistrationPage extends StatelessWidget {
                   children: [
                     Text(
                       "or register with",
-                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             fontSize: screenHeight * 0.01111817, // 10
                           ),
                     ),
@@ -174,7 +209,7 @@ class RegistrationPage extends StatelessWidget {
                       onTap: _onSignInPressed,
                       child: Text(
                         "Sign In",
-                        style: Theme.of(context).textTheme.headline6?.copyWith(
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontSize: screenHeight * 0.01111817, // 10
                             ),
                       ),

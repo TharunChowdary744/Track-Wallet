@@ -53,7 +53,7 @@ class _CurrencyFormFieldState extends State<CurrencyFormField> {
         "Select Currency",
         style: Theme.of(context)
             .textTheme
-            .bodyText1
+            .bodyLarge
             ?.copyWith(fontSize: screenHeight * 0.0225),
       ),
       content: Container(
@@ -73,7 +73,7 @@ class _CurrencyFormFieldState extends State<CurrencyFormField> {
               },
               title: Text(
                 _currencies[index].code,
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontSize: screenHeight * 0.0175,
                 ),
               ),
@@ -82,7 +82,7 @@ class _CurrencyFormFieldState extends State<CurrencyFormField> {
               ),
               trailing: Text(
                 _currencies[index].symbol ?? "", // Handle null symbol
-                style: Theme.of(context).textTheme.caption?.copyWith(
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontSize: screenHeight * 0.02,
                 ),
               ),

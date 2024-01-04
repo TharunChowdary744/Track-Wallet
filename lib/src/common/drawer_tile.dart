@@ -40,7 +40,7 @@ class DrawerTile extends StatelessWidget {
             SizedBox(width: screenWidth * 0.0486618),
             Text(
               title,
-              style: Theme.of(context).textTheme.headline2?.copyWith(
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 fontSize: screenHeight * 0.015341804,
               ),
             ),

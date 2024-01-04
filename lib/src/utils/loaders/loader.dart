@@ -26,7 +26,7 @@ class TcLoaders {
         child: Center(
           child: Text(
             message,
-            style: Theme.of(Get.context!).textTheme.button,
+            style: Theme.of(Get.context!).textTheme.labelLarge,
           ),
         ),
       ),

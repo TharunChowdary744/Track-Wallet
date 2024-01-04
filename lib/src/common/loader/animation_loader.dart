@@ -32,7 +32,7 @@ class TcAnimationLoaderWidget extends StatelessWidget {
           ),
           Text(
             text,
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.displayMedium,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: TcSizes.defaultSpace,),
@@ -41,7 +41,7 @@ class TcAnimationLoaderWidget extends StatelessWidget {
             child: OutlinedButton(
               onPressed: onActionPressed,
               style: OutlinedButton.styleFrom(backgroundColor: TcColors.dark),
-              child: Text(actionText!,style: Theme.of(context).textTheme.bodyText2),
+              child: Text(actionText!,style: Theme.of(context).textTheme.bodyMedium),
             ),
           ):const SizedBox(),
         ],

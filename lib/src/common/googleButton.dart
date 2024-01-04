@@ -44,7 +44,7 @@
 //             ),
 //             Text(
 //               title,
-//               style: Theme.of(context).textTheme.caption?.copyWith(
+//               style: Theme.of(context).textTheme.bodySmall?.copyWith(
 //                     fontSize: screenHeight * 0.017789072, //16
 //                   ),
 //             )
@@ -101,7 +101,7 @@ class GoogleButton extends StatelessWidget {
             ),
             Text(
               title,
-              style: Theme.of(context).textTheme.caption?.copyWith(
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontSize: screenHeight * 0.017789072, //16
               ),
             )

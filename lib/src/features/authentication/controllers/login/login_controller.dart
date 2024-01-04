@@ -3,7 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../data/authentication.repository/authentication_repository.dart';
+import '../../../../data/authentication/authentication_repository.dart';
 
 
 class LoginController extends GetxController {
