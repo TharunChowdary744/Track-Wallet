@@ -12,7 +12,6 @@ import '../../../../utils/popups/full_screen_loader.dart';
 import '../../../personalization/controllers/user_controller.dart';
 import '../../../personalization/modals/user_model.dart';
 
-
 class LoginController extends GetxController {
   // static LoginController get instance => Get.find();
   final rememberMe = false.obs;
@@ -20,9 +19,8 @@ class LoginController extends GetxController {
   final localStorage = GetStorage();
   final email = TextEditingController();
   final password = TextEditingController();
-  GlobalKey<FormState> loginFormKey  = GlobalKey<FormState>();
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final userController = Get.put(UserController());
-
 
   @override
   void onInit() {
@@ -34,7 +32,8 @@ class LoginController extends GetxController {
   Future<void> emailAndPasswordSignIn() async {
     try {
       //start Loading
-      TcFullScreenLoader.openLoadingDialog('Logging you in...',TcImages.loadingDataImage);
+      TcFullScreenLoader.openLoadingDialog(
+          'Logging you in...', TcImages.loadingDataImage);
 
       //Check internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
@@ -43,39 +42,36 @@ class LoginController extends GetxController {
         TcFullScreenLoader.stopLoading();
         return;
       }
-        //Form Validation
-        if (!loginFormKey.currentState!.validate()) {
-          TcFullScreenLoader.stopLoading();
-          return;
-        }
-        // Privacy Policy check
-        if (rememberMe.value) {
-         localStorage.write('REMEMBER_ME_EMAIL', email.text.trim());
-         localStorage.write('REMEMBER_ME_PASSWORD', password.text.trim());
-        }
-        // login user in the Firebase Authentication & Save user data in the Firebase
-        final userCredential = await AuthenticationRepository.instance
-            .loginWithEmailAndPassword(
-            email.text.trim(), password.text.trim());
+      //Form Validation
+      if (!loginFormKey.currentState!.validate()) {
+        TcFullScreenLoader.stopLoading();
+        return;
+      }
+      // Privacy Policy check
+      if (rememberMe.value) {
+        localStorage.write('REMEMBER_ME_EMAIL', email.text.trim());
+        localStorage.write('REMEMBER_ME_PASSWORD', password.text.trim());
+      }
+      // login user in the Firebase Authentication & Save user data in the Firebase
+      final userCredential = await AuthenticationRepository.instance
+          .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
 
       TcFullScreenLoader.stopLoading();
 
       AuthenticationRepository.instance.screenRedirect();
+    }
 
-      }
-
-
-      // Show success Message
-     catch (e){
+    // Show success Message
+    catch (e) {
       TcFullScreenLoader.stopLoading();
       TcLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
-     }
+    }
   }
+
   Future<void> googleLogin() async {
-    try{
-
-      TcFullScreenLoader.openLoadingDialog('Logging you in...',TcImages.loadingDataImage);
-
+    try {
+      TcFullScreenLoader.openLoadingDialog(
+          'Logging you in...', TcImages.loadingDataImage);
 
       final isConnected = await NetworkManager.instance.isConnected();
 
@@ -84,14 +80,16 @@ class LoginController extends GetxController {
         return;
       }
 
-      final userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
+      final userCredentials =
+          await AuthenticationRepository.instance.signInWithGoogle();
 
       await userController.saveUserRecord(userCredentials);
 
       TcFullScreenLoader.stopLoading();
 
-AuthenticationRepository.instance.screenRedirect();
-    }catch (e){
+      AuthenticationRepository.instance.screenRedirect();
+    } catch (e) {
+      TcFullScreenLoader.stopLoading();
       TcLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
     }
   }
