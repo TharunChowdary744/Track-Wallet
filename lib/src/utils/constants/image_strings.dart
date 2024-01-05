@@ -1,8 +1,8 @@
 class TcImages {
   // OnBoarding images
-  static const String onBoardingImage1 = "assets/images/Task.png";
+  static const String onBoardingImage1 = "assets/animations/typeList.json";
   static const String onBoardingImage2 = "assets/images/Design.png";
-  static const String onBoardingImage3 = "assets/images/Feedback.png";
+  static const String onBoardingImage3 = "assets/animations/typeList.json";
 
   // Text fields images
   static const String textFieldMail = 'assets/icons/auth_icons/mail.svg';
@@ -13,5 +13,8 @@ class TcImages {
 
   // Loading images
   static const String loadingDataImage = 'assets/animations/loadingData.json';
-
+  static const String verifyIllustration = 'assets/animations/sammy-line-sailor-on-mast-looking-through-telescope.gif';
+  static const String statisSuccessllustration = 'assets/animations/sammy-line-woman-gives-five-to-a-robot-with-artificial-intelligence.png';
+  static const String deliveryverifyIllustration = 'assets/animations/sammy-line-man-receives-a-mail.png';
+  static const String successfullyRegisterAnimation = 'assets/animations/success.json';
 }

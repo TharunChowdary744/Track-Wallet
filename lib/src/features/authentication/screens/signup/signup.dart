@@ -11,7 +11,6 @@ import '../../../../common/blueButton.dart';
 import '../../../../common/form_fields/custom_form_field.dart';
 import '../../../../utils/utils.dart';
 import '../../../../common/googleButton.dart';
-import '../../controllers/login/login_controller.dart';
 import '../../controllers/signup/signup_controller.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -149,7 +148,7 @@ class SignUpPage extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              launch("https://contri-app.web.app");
+                              launch("https://contr.app");
                             },
                             child: Text(
                               "Terms and Conditions",
@@ -191,7 +190,7 @@ class SignUpPage extends StatelessWidget {
                   title: "Sign Up with Google",
                   onPressed: () {
                     // SignUpController.instance.registerUser(_emailTextController.text, _passtextController.text);
-                    LoginController.instance.googleLogin();
+                    // LoginController.instance.googleLogin();
                   },
                 ),
                 SizedBox(height: screenHeight * 0.140462516),

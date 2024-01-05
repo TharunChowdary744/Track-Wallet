@@ -1,4 +1,6 @@
+import 'package:expense_tracker/home_page.dart';
 import 'package:expense_tracker/src/exceptions/platform_exceptions.dart';
+import 'package:expense_tracker/src/features/authentication/screens/signup/verify_email.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -33,13 +35,43 @@ class AuthenticationRepository extends GetxController {
   }
 
   screenRedirect() async {
-    deviceStorage.writeIfNull('isFirstTime', true);
-    deviceStorage.read('isFirstTime') != true
-        ? Get.offAll(() => LoginPage())
-        : Get.offAll(() => const OnBoardingScreen());
+    final user = _auth.currentUser;
+    if (user != null) {
+      if (user.emailVerified) {
+        Get.offAll(() => HomePage());
+      } else {
+        Get.offAll(() => VerifyEmailScreen(
+              email: _auth.currentUser?.email,
+            ));
+      }
+    } else {
+      deviceStorage.writeIfNull('isFirstTime', true);
+      deviceStorage.read('isFirstTime') != true
+          ? Get.offAll(() => LoginPage())
+          : Get.offAll(const OnBoardingScreen());
+    }
   }
 
   // -----------------------------------------Email & Password sign-in----------------------------------------------
+
+  ///[EmailAuthentication] - LOGIN
+  Future<UserCredential> loginWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      return await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      throw TcFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TcFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TcFormatException();
+    } on PlatformException catch (e) {
+      throw TcPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 
   ///[EmailAuthentication] - REGISTER
   Future<UserCredential> registerWithEmailAndPassword(
@@ -104,13 +136,13 @@ class AuthenticationRepository extends GetxController {
   //   }
   // }
 
-  Future<void> loginWithEmailAndPassword(String email, String password) async {
-    try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      Get.snackbar('Error', e.toString(), snackPosition: SnackPosition.BOTTOM);
-    }
-  }
+  // Future<void> loginWithEmailAndPassword(String email, String password) async {
+  //   try {
+  //     await _auth.signInWithEmailAndPassword(email: email, password: password);
+  //   } on FirebaseAuthException catch (e) {
+  //     Get.snackbar('Error', e.toString(), snackPosition: SnackPosition.BOTTOM);
+  //   }
+  // }
 
   Future<UserCredential?> loginInWithGoogle() async {
     try {
@@ -142,7 +174,8 @@ class AuthenticationRepository extends GetxController {
           uid: user.uid,
         );
         // UserRepository.instance.createUser(_user);
-        print("============================================================================");
+        print(
+            "============================================================================");
         return userCredential;
       }
       return await FirebaseAuth.instance.signInWithCredential(credential);
@@ -153,9 +186,19 @@ class AuthenticationRepository extends GetxController {
   }
 
   Future<void> logout() async {
-    await _auth.signOut();
-    await GoogleSignIn().signOut();
-    // await _googleSignIn.signOut();
-    Get.offAllNamed('/login');
+    try {
+      await FirebaseAuth.instance.signOut();
+      Get.offAll(() => LoginPage());
+    } on FirebaseAuthException catch (e) {
+      throw TcFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TcFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TcFormatException();
+    } on PlatformException catch (e) {
+      throw TcPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
   }
 }

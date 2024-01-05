@@ -1,3 +1,5 @@
+import 'package:expense_tracker/src/utils/constants/sizes.dart';
+import 'package:expense_tracker/src/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -13,10 +15,10 @@ import '../../controllers/login/login_controller.dart';
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     void _onSignUpPressed() {
       Navigator.of(context).pushReplacementNamed("/registration");
     }
+
     final _emailNode = FocusNode();
     final _passwordNode = FocusNode();
 
@@ -62,7 +64,7 @@ class LoginPage extends StatelessWidget {
                   height: screenHeight * 0.036689962, //33
                 ),
                 Form(
-                  key: controller.loginFormKey ,
+                  key: controller.loginFormKey,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -75,11 +77,12 @@ class LoginPage extends StatelessWidget {
                         hintText: 'Email',
                         prefixImage: 'assets/icons/auth_icons/mail.svg',
                         keyboardType: TextInputType.emailAddress,
-                        validator: (value)=>TcValidator.validateEmail(value!),
+                        validator: (value) => TcValidator.validateEmail(value!),
                       ),
-                      SizedBox(height: screenHeight * 0.024459975), // 22
+                      const SizedBox(height: TcSizes.spaceBtwInputFields),
+                      // 22
                       Obx(
-                        ()=> CustomTextFormField(
+                        () => CustomTextFormField(
                           currentNode: _passwordNode,
                           textInputAction: TextInputAction.done,
                           maxLines: 1,
@@ -87,7 +90,8 @@ class LoginPage extends StatelessWidget {
                           hintText: 'Password',
                           prefixImage: 'assets/icons/auth_icons/lock.svg',
                           keyboardType: TextInputType.text,
-                          validator: (value)=>TcValidator.validatePassword(value!),
+                          validator: (value) =>
+                              TcValidator.validatePassword(value!),
                           obscureText: controller.hidePassword.value,
                           suffix: AnimatedContainer(
                             duration: Duration(milliseconds: 200),
@@ -101,32 +105,37 @@ class LoginPage extends StatelessWidget {
                                 width: screenHeight * 0.024471635,
                               ),
                               onPressed: () => controller.hidePassword.value =
-                              !controller.hidePassword.value,
+                                  !controller.hidePassword.value,
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.024459975), // 22
+                      const SizedBox(height: TcSizes.spaceBtwInputFields / 2),
+                      // 22
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          GestureDetector(
-                            onTap: _onForgetPasswordPressed,
-                            child: Text(
-                              "FORGOT PASWWORD",
-                              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                fontSize: screenHeight * 0.01111817, // 10
-                              ),
-                            ),
+                          Row(
+                            children: [
+                              Obx(() => Checkbox(
+                                  value: controller.rememberMe.value,
+                                  onChanged: (value) =>
+                                      controller.rememberMe.value =value ?? false
+                                      /*!controller.rememberMe.value*/)),
+                              const Text(TcTexts.rememberMe),
+                            ],
                           ),
+                          TextButton(
+                              onPressed: () {},
+                              child: Text(TcTexts.forgotPassword)),
                         ],
                       ),
-                      SizedBox(height: screenHeight * 0.024459975), // 22
+
+                      SizedBox(height: TcSizes.spaceBtwSections),
+                      // 22
                       BlueButton(
-                          title: "Sign In",
-                          onPressed: () {
-                            // LoginController.instance.emailAndPasswordLogin(emailController.text, passwordController.text);
-                          }),
+                          title: TcTexts.signUp,
+                          onPressed: () => controller.emailAndPasswordSignIn()),
                     ],
                   ),
                 ),
@@ -138,9 +147,10 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Text(
                       "or connect with",
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                            fontSize: screenHeight * 0.01111817, // 10
-                          ),
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                fontSize: screenHeight * 0.01111817, // 10
+                              ),
                     ),
                   ],
                 ),
@@ -150,7 +160,7 @@ class LoginPage extends StatelessWidget {
                 GoogleButton(
                     title: "Continue with Google",
                     onPressed: () {
-                      LoginController.instance.googleLogin();
+                      // LoginController.instance.googleLogin();
                       Navigator.of(context).pushReplacementNamed('/home');
                     }
                     //_onGoogleSignInPressed,
@@ -186,4 +196,3 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-

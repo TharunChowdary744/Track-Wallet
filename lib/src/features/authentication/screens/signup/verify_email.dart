@@ -1,67 +1,69 @@
+import 'package:expense_tracker/src/data/authentication/authentication_repository.dart';
+import 'package:expense_tracker/src/features/authentication/controllers/signup/verify_email_controller.dart';
+import 'package:expense_tracker/src/features/authentication/screens/login/login_page.dart';
+import 'package:expense_tracker/src/features/authentication/screens/signup/success_screen.dart';
+import 'package:expense_tracker/src/utils/constants/image_strings.dart';
+import 'package:expense_tracker/src/utils/constants/sizes.dart';
+import 'package:expense_tracker/src/utils/constants/text_strings.dart';
+import 'package:expense_tracker/src/utils/helpers/helper_functions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../common/blueButton.dart';
-import '../../../../utils/utils.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
-
   const VerifyEmailScreen({super.key, this.email});
 
   final String? email;
 
-
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(const VerifyEmailScreen());
+    final controller = Get.put(VerifyEmailController());
     return Scaffold(
-      body: Center(
-        child: Container(
-          margin: EdgeInsets.symmetric(
-              horizontal: screenWidth * 0.072916667), // 30
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+              onPressed: () => AuthenticationRepository.instance.logout(),
+              icon: Icon(CupertinoIcons.clear))
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(TcSizes.defaultSpace), // 30
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                height: screenHeight * 0.222363405, // 200
-                // child: Builder(
-                //   builder: (context) => FlareActor(
-                //     'assets/flare/verification_loading.flr',
-                //     alignment: Alignment.center,
-                //     animation: 'loading',
-                //     fit: BoxFit.contain,
-                //   ),
-                // ),
+              Image(
+                image: AssetImage(TcImages.deliveryverifyIllustration),
+                width: TcHelperFunctions.screenWidth() * 0.6,
               ),
-              SizedBox(height: screenHeight * 0.044472681), // 40
-              Text(
-                "Waiting for Verification",
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  fontSize: screenHeight * 0.03001906, // 27
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.03001906), // 27
-              Text(
-                "A verification email has been sent to your email",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: screenHeight * 0.015565438, // 14
-                ),
-              ),
-              Text(
-                "Verify by clicking on the link provided",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: screenHeight * 0.015565438, // 14
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.050031766), // 45
+              const SizedBox(height: TcSizes.spaceBtwSections), // 40
+
+              Text(TcTexts.confirmEmail,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center),
+              const SizedBox(height: TcSizes.spaceBtwItems),
+              Text(email??'',
+                  style: Theme.of(context).textTheme.labelLarge,
+                  textAlign: TextAlign.center),
+              const SizedBox(height: TcSizes.spaceBtwItems),
+              Text(TcTexts.confirmEmailSubTitle,
+                  style: Theme.of(context).textTheme.labelMedium,
+                  textAlign: TextAlign.center),
+              const SizedBox(height: TcSizes.spaceBtwSections),
               BlueButton(
-                title: "Confirm Verification",
-                onPressed: (){},
+                title: TcTexts.tcContinue,
+                onPressed: () => controller.checkEmailVerificationStatus(),
               ),
-              SizedBox(height: screenHeight * 0.025031766), // 45
-              BlueButton(
-                title: "Resend Verification Link",
-                onPressed: (){},
+              const SizedBox(height: TcSizes.spaceBtwItems), // 45
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: ()=>controller.sendEmailVerification(),
+                  child: Text(TcTexts.resendEmail),
+                ),
               ),
             ],
           ),

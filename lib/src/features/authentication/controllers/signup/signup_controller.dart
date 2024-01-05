@@ -42,6 +42,7 @@ class SignUpController extends GetxController {
             title: 'Accept Privacy Policy',
             message:
             'In order to create account, you must have to read and accept the Privacy Policy & Terms of Use.');
+        TcFullScreenLoader.stopLoading();
         return;
       }
       // Register user in the Firebase Authentication & Save user data in the Firebase
@@ -64,14 +65,15 @@ class SignUpController extends GetxController {
       TcFullScreenLoader.stopLoading();
       TcLoaders.successSnackBar(title: 'Congratulatons', message:'Your account has been created! Verify email to continue.');
 
-      Get.to(()=>const VerifyEmailScreen());
+      Get.to(()=>VerifyEmailScreen(email: email.text.trim(),));
 
       
       // Show success Message
     } catch (e) {
       TcLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
-    }//  finally {
-    //   // TcFullScreenLoader.stopLoading();
+    }
+    // finally {
+    //   TcFullScreenLoader.stopLoading();
     // }
   }
 
