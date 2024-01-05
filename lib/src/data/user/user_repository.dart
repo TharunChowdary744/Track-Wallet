@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../features/authentication/models/user_model.dart';
+import '../../features/personalization/modals/user_model.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();

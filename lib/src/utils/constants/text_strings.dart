@@ -9,6 +9,9 @@ class TcTexts {
   static const String onBoardingSubTitle3 = "onBoardingSubTitle3";
 
   // Auth
+  static const String email = 'Email';
+  static const String submit = 'Submit';
+  static const String done = 'Done';
   static const String signUpHeading = 'Let\'s create your account';
   static const String confirmEmail = 'Verify your email address!';
   static const String emailSentText =
@@ -16,6 +19,10 @@ class TcTexts {
   static const String yourAccountCreatedTitle = 'Your account successfully created!';
   static const String yourAccountCreatedSubTitle = 'Welcome to Your Ultimate Expense Management Hub! Your account is now created. Dive into the convenience of Effortless Expense Tracking.';
   static const String resendEmail = 'Resend Email';
+  static const String forgotPasswordTitle = 'Forgot password';
+  static const String forgotPasswordSubTitle = 'Don\'t worry sometimes people can forgot too, enter your email and see we will send you a password reset secure link';
+  static const String changeYourPasswordTitle = 'Password Reset Email Sent';
+  static const String changeYourPasswordSubTitle = 'Your Account Security is Our Priority! We\'ve Sent you a Secure Link to Safely Change Your Password and Keep Your Account Protected';
   static const String tcContinue = 'Continue';
   static const String rememberMe = 'Remember Me';
   static const String forgotPassword = 'Forgot Password?';

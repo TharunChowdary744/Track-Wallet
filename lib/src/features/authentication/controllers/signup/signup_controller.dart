@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../../data/authentication/authentication_repository.dart';
 import '../../../../data/user/user_repository.dart';
-import '../../models/user_model.dart';
+import '../../../personalization/modals/user_model.dart';
 import '../../screens/signup/verify_email.dart';
 
 class SignUpController extends GetxController {
@@ -34,7 +34,10 @@ class SignUpController extends GetxController {
       if (!isConnected) return;
 
       //Form Validation
-      if (!signupFormKey.currentState!.validate()) return;
+      if (!signupFormKey.currentState!.validate()) {
+        TcFullScreenLoader.stopLoading();
+        return;
+      }
 
       // Privacy Policy check
       if (!privacyPolicy.value) {

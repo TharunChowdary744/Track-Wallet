@@ -9,7 +9,8 @@ import '../../../../data/authentication/authentication_repository.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/helpers/network_manager.dart';
 import '../../../../utils/popups/full_screen_loader.dart';
-import '../../models/user_model.dart';
+import '../../../personalization/controllers/user_controller.dart';
+import '../../../personalization/modals/user_model.dart';
 
 
 class LoginController extends GetxController {
@@ -20,12 +21,14 @@ class LoginController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   GlobalKey<FormState> loginFormKey  = GlobalKey<FormState>();
+  final userController = Get.put(UserController());
 
 
-  Future<void> googleLogin() async {
-    AuthenticationRepository.instance.loginInWithGoogle();
-
-
+  @override
+  void onInit() {
+    // email.text = localStorage.read('REMEMBER_ME_EMAIL');
+    // password.text = localStorage.read('REMEMBER_ME_PASSWORD');
+    super.onInit();
   }
 
   Future<void> emailAndPasswordSignIn() async {
@@ -67,5 +70,29 @@ class LoginController extends GetxController {
       TcFullScreenLoader.stopLoading();
       TcLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
      }
+  }
+  Future<void> googleLogin() async {
+    try{
+
+      TcFullScreenLoader.openLoadingDialog('Logging you in...',TcImages.loadingDataImage);
+
+
+      final isConnected = await NetworkManager.instance.isConnected();
+
+      if (!isConnected) {
+        TcFullScreenLoader.stopLoading();
+        return;
+      }
+
+      final userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
+
+      await userController.saveUserRecord(userCredentials);
+
+      TcFullScreenLoader.stopLoading();
+
+AuthenticationRepository.instance.screenRedirect();
+    }catch (e){
+      TcLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
+    }
   }
 }

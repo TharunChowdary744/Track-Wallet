@@ -1,10 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../utils/formatters/formatter.dart';
 
 class UserModel {
   final String? id;
   final String? displayName;
   final String? firstName;
   final String? lastName;
+  final String? username;
   final String? email;
   final String? phoneNo;
   final String? password;
@@ -18,6 +19,7 @@ class UserModel {
     this.displayName,
     this.firstName,
     this.lastName,
+    this.username,
     this.email,
     this.phoneNo,
     this.password,
@@ -30,10 +32,28 @@ class UserModel {
       "LastName": lastName,
       "Email": email,
       "Phone": phoneNo,
+      'Username':username,
       "Photo": photoURL,
       "Password": password,
       "UID": uid,
     };
+  }
+
+  String get fullName => '$firstName $lastName';
+
+  String get formattedPhoneNo => TcFormatter.formatPhoneNumber(phoneNo!);
+
+  static List<String> nameParts(fullName) => fullName.split(" ");
+
+  static String generateUsername(fullName){
+    List<String> nameParts = fullName.split(" ");
+    String firstName = nameParts[0].toLowerCase();
+    String lastName = nameParts.length>1?nameParts[1].toLowerCase():'';
+
+    String camelCaseUsername = "$firstName$lastName";
+    String usernameWithPrefix = "cwt_$camelCaseUsername";
+    return usernameWithPrefix;
+
   }
 
   // factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document){

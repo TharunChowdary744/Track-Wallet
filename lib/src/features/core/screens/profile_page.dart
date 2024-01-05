@@ -5,7 +5,7 @@ import '../../../common/form_fields/custom_form_field.dart';
 import '../../../utils/utils.dart';
 import '../../../utils/validators/validators.dart';
 import '../../../common/form_fields/currency_form_field.dart';
-import '../../authentication/models/user_model.dart';
+import '../../personalization/modals/user_model.dart';
 
 class ProfilePage extends StatelessWidget {
   static const String id = "profile_page";

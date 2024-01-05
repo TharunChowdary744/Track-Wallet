@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../../features/authentication/models/user_model.dart';
+import '../../features/personalization/modals/user_model.dart';
 import '../../utils/logger/logger.dart';
 import '../../features/authentication/screens/onboarding/onboarding.dart';
 import '../../exceptions/firebase_auth_exceptions.dart';
@@ -29,9 +29,6 @@ class AuthenticationRepository extends GetxController {
     FlutterNativeSplash.remove();
     screenRedirect();
 
-    // firebaseUser = Rx<User?>(_auth.currentUser);
-    // firebaseUser.bindStream(_auth.userChanges());
-    // ever(firebaseUser, _setInitialScreen);
   }
 
   screenRedirect() async {
@@ -109,84 +106,50 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  // Future<void> createUserWithEmailAndPassword(
-  //     String email, String password) async {
-  //   try {
-  //     await _auth.createUserWithEmailAndPassword(
-  //         email: email, password: password);
-  //     // firebaseUser.value != null
-  //     //     ? Get.offAll(() => ('/home'))
-  //     //     : Get.offAll(() => /*WelcomeScreen()*/ ('/login'));
-  //     User? user = _auth.currentUser;
-  //     logger.i("+++++++++++++>>>>>$user");
-  //   } on FirebaseAuthException catch (e) {
-  //     final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
-  //     logger.w("===fffffff====>>>>>${ex.message}");
-  //     Get.snackbar('Error', ex.message.toString(),
-  //         snackPosition: SnackPosition.BOTTOM);
-  //
-  //     throw ex;
-  //   } catch (_) {
-  //     final ex = SignUpWithEmailAndPasswordFailure.code("");
-  //     logger.w("===-------====>>>>>${ex.message}");
-  //     Get.snackbar('Error', ex.message.toString(),
-  //         snackPosition: SnackPosition.BOTTOM);
-  //
-  //     throw ex;
-  //   }
-  // }
-
-  // Future<void> loginWithEmailAndPassword(String email, String password) async {
-  //   try {
-  //     await _auth.signInWithEmailAndPassword(email: email, password: password);
-  //   } on FirebaseAuthException catch (e) {
-  //     Get.snackbar('Error', e.toString(), snackPosition: SnackPosition.BOTTOM);
-  //   }
-  // }
-
-  Future<UserCredential?> loginInWithGoogle() async {
+  ///[EmailVerification] - FORGOT PASSWORD
+  Future<void> sendPasswordResetEmail(String email) async {
     try {
-      final controller = await Get.put(UserRepository());
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
-      // Create a new credential
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-      // Once signed in, return the UserCredential
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      // Access user data
-      User? user = userCredential.user;
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw TcFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TcFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TcFormatException();
+    } on PlatformException catch (e) {
+      throw TcPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 
-      print(
-          "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      // logger.e(user);
-      if (user != null) {
-        final _user = UserModel(
-          displayName: user.displayName ?? "",
-          email: user.email ?? "",
-          phoneNo: user.phoneNumber ?? "",
-          photoURL: user.photoURL ?? "",
-          uid: user.uid,
-        );
-        // UserRepository.instance.createUser(_user);
-        print(
-            "============================================================================");
-        return userCredential;
-      }
-      return await FirebaseAuth.instance.signInWithCredential(credential);
-    } catch (error) {
-      print(
-          "----------------------------------------------------------------------------");
+  // --------------------------------Fedrated identity & social sign-in-------------------------------------
+
+
+  ///[GoogleAuthentication] - GOOGLE SIGN
+  Future<UserCredential> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =await userAccount?.authentication;
+
+      final credentials = GoogleAuthProvider.credential(accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+      return await _auth.signInWithCredential(credentials);
+    } on FirebaseAuthException catch (e) {
+      throw TcFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TcFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TcFormatException();
+    } on PlatformException catch (e) {
+      throw TcPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
     }
   }
 
   Future<void> logout() async {
     try {
+      await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
       Get.offAll(() => LoginPage());
     } on FirebaseAuthException catch (e) {
