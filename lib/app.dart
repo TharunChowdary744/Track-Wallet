@@ -1,15 +1,12 @@
 import 'package:expense_tracker/src/bindings/general_bindings.dart';
 import 'package:expense_tracker/src/features/authentication/screens/login/login_page.dart';
-import 'package:expense_tracker/src/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:expense_tracker/src/features/authentication/screens/signup/signup.dart';
-import 'package:expense_tracker/src/features/core/screens/profile_page.dart';
 import 'package:expense_tracker/src/utils/constants/colors.dart';
 import 'package:expense_tracker/src/utils/theme/theme.dart';
 import 'package:expense_tracker/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'home_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -35,8 +32,6 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/login', page: () => LoginPage()),
         GetPage(name: '/registration', page: () => SignUpPage()),
-        GetPage(name: '/home', page: () => HomePage()),
-        GetPage(name: '/profile', page: () => ProfilePage()),
       ],
     );
   }

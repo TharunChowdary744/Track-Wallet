@@ -1,4 +1,3 @@
-import 'package:expense_tracker/home_page.dart';
 import 'package:expense_tracker/src/exceptions/platform_exceptions.dart';
 import 'package:expense_tracker/src/features/authentication/screens/signup/verify_email.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../../../navigation_menu.dart';
 import '../../features/personalization/modals/user_model.dart';
 import '../../utils/logger/logger.dart';
 import '../../features/authentication/screens/onboarding/onboarding.dart';
@@ -35,7 +35,7 @@ class AuthenticationRepository extends GetxController {
     final user = _auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
-        Get.offAll(() => HomePage());
+        Get.offAll(() => NavigationMenu());
       } else {
         Get.offAll(() => VerifyEmailScreen(
               email: _auth.currentUser?.email,
@@ -146,6 +146,9 @@ class AuthenticationRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
+
+
+  // -------------------------------------LogOut all credentials--------------------------------------------
 
   Future<void> logout() async {
     try {

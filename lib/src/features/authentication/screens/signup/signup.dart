@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../../common/blueButton.dart';
+import '../../../../common/widgets/blueButton.dart';
 import '../../../../common/form_fields/custom_form_field.dart';
 import '../../../../utils/utils.dart';
 import '../../../../common/googleButton.dart';

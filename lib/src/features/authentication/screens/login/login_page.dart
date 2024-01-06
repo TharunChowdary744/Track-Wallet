@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../../../common/blueButton.dart';
+import '../../../../common/widgets/blueButton.dart';
 import '../../../../common/forgotPasswordDialog.dart';
 import '../../../../common/form_fields/custom_form_field.dart';
 import '../../../../common/googleButton.dart';
