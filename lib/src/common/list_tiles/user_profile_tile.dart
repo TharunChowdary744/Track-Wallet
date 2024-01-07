@@ -1,4 +1,7 @@
+import 'package:expense_tracker/src/features/personalization/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../tc_circular_image.dart';
@@ -15,6 +18,7 @@ class TcUserProfileTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
     return ListTile(
       leading: TcCircularImage(
         image: TcImages.user,
@@ -23,14 +27,14 @@ class TcUserProfileTile extends StatelessWidget {
         padding: 0,
       ),
       title: Text(
-        'Tharun',
+        controller.user.value.fullName,
         style: Theme.of(context)
             .textTheme
             .headlineSmall!
             .apply(color: TcColors.white),
       ),
       subtitle: Text(
-        'hfdgf@gmail.com',
+        controller.user.value.email,
         style: Theme.of(context)
             .textTheme
             .bodyMedium!

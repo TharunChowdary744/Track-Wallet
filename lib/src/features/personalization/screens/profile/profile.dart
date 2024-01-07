@@ -1,4 +1,5 @@
 import 'package:expense_tracker/src/common/widgets/appbar/appbar.dart';
+import 'package:expense_tracker/src/features/personalization/controllers/user_controller.dart';
 import 'package:expense_tracker/src/features/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:expense_tracker/src/section_heading.dart';
 import 'package:expense_tracker/src/tc_circular_image.dart';
@@ -13,6 +14,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return Scaffold(
       appBar: TcAppBar(
         showBackArrow: true,
@@ -52,8 +54,8 @@ class ProfileScreen extends StatelessWidget {
               SizedBox(
                 height: TcSizes.spaceBtwItems,
               ),
-              TcProfileMenu(onPressed: () {  }, title: 'Name', value: 'akhsegfkashdf',),
-              TcProfileMenu(onPressed: () {  }, title: 'Username', value: 'akhsegfkashdf',),
+              TcProfileMenu(onPressed: () {  }, title: 'Name', value: controller.user.value.fullName,),
+              // TcProfileMenu(onPressed: () {  }, title: 'Username', value: controller.user.value.username,),
 
               SizedBox(
                 height: TcSizes.spaceBtwItems / 2,
@@ -69,9 +71,9 @@ class ProfileScreen extends StatelessWidget {
               SizedBox(
                 height: TcSizes.spaceBtwItems,
               ),
-              TcProfileMenu(onPressed: () {  }, title: 'User ID', value: 'akhsegfkashdf',icon: Iconsax.copy_copy,),
-              TcProfileMenu(onPressed: () {  }, title: 'E-mail', value: 'akhsegfkashdf',),
-              TcProfileMenu(onPressed: () {  }, title: 'Phone Number', value: 'akhsegfkashdf',),
+              TcProfileMenu(onPressed: () {  }, title: 'User ID', value: controller.user.value.id,icon: Iconsax.copy_copy,),
+              TcProfileMenu(onPressed: () {  }, title: 'E-mail', value: controller.user.value.email,),
+              controller.user.value.phoneNo!=''?TcProfileMenu(onPressed: () {  }, title: 'Phone Number', value: controller.user.value.phoneNo,):SizedBox(),
 
             ],
           ),

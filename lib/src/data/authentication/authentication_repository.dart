@@ -21,6 +21,8 @@ class AuthenticationRepository extends GetxController {
   final _auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
 
+  User? get authUser => _auth.currentUser;
+
   @override
   void onReady() {
     FlutterNativeSplash.remove();
@@ -28,7 +30,7 @@ class AuthenticationRepository extends GetxController {
 
   }
 
-  screenRedirect() async {
+  void screenRedirect() async {
     final user = _auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
