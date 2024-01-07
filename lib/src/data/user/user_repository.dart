@@ -25,16 +25,21 @@ class UserRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
-  //
-  // Future<UserModel> getUserDetails(String email) async {
-  //   final snapshot = await _db.collection("Users").where("Email",isEqualTo: email).get();
-  //   final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
-  //   return userData;
-  // }
-  //
-  // Future<List<UserModel>> allUsers() async {
-  //   final snapshot = await _db.collection("Users").get();
-  //   final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
-  //   return userData;
-  // }
+
+  Future<UserModel>fetchUserDetails() async {
+    try{
+      final documentSnapshot = await _db.collection("Users").doc().get();
+      if(documentSnapshot.exists){
+        return UserModel;
+      }
+    } on FirebaseException catch (e){
+      throw TcFirebaseException(e.code).message;
+    } on FormatException catch (_){
+      throw TcFormatException();
+    } on PlatformException catch (e){
+      throw TcPlatformException(e.code).message;
+    } catch (e){
+      throw 'Something went wrong. Please try again';
+    }
+  }
 }

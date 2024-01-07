@@ -7,14 +7,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../navigation_menu.dart';
-import '../../features/personalization/modals/user_model.dart';
-import '../../utils/logger/logger.dart';
 import '../../features/authentication/screens/onboarding/onboarding.dart';
 import '../../exceptions/firebase_auth_exceptions.dart';
 import '../../exceptions/firebase_exceptions.dart';
 import '../../exceptions/format_exceptions.dart';
 import '../../features/authentication/screens/login/login_page.dart';
-import '../user/user_repository.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();

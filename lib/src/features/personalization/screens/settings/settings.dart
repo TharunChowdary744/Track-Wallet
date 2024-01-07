@@ -1,11 +1,20 @@
+import 'package:expense_tracker/src/common/list_tiles/settings_menu_tile.dart';
 import 'package:expense_tracker/src/common/widgets/appbar/appbar.dart';
 import 'package:expense_tracker/src/common/widgets/custom_shapes/containers/primary_header_container.dart';
+import 'package:expense_tracker/src/section_heading.dart';
+import 'package:expense_tracker/src/tc_circular_image.dart';
 import 'package:expense_tracker/src/utils/constants/colors.dart';
+import 'package:expense_tracker/src/utils/constants/image_strings.dart';
 import 'package:expense_tracker/src/utils/constants/sizes.dart';
 import 'package:expense_tracker/src/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
+import '../../../../common/list_tiles/user_profile_tile.dart';
 import '../../../../common/widgets/image_text_widgets/vertical_image_text.dart';
+import '../profile/profile.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -28,18 +37,51 @@ class SettingsScreen extends StatelessWidget {
                         .apply(color: TcColors.white),
                   ),
                 ),
+                TcUserProfileTile(onPressed:()=>Get.to(()=>ProfileScreen())),
                 SizedBox(
                   height: TcSizes.spaceBtwSections,
                 ),
-                ListTile(
-                  // leading: TcVerticalImageText(image: '', title: '',),
-                )
               ],
-            ))
+            )),
+            Padding(
+              padding: EdgeInsets.all(TcSizes.defaultSpace),
+              child: Column(
+                children: [
+                  TcSectionHeading(
+                    title: 'Account Settings',
+                    showActionButton: false,
+                  ),
+                  SizedBox(
+                    height: TcSizes.spaceBtwItems,
+                  ),
+                  TcSettingsMenuTile(
+                    icon: Iconsax.safe_home,
+                    title: 'Account Privacy',
+                    subTitle: 'Manage data usage and connected accounts',
+
+                  ),
+                  TcSettingsMenuTile(
+                    icon: Iconsax.notification,
+                    title: 'Notifications',
+                    subTitle: 'Set any kind of notification message',
+                  ),
+                  SizedBox(height: TcSizes.spaceBtwSections,),
+                  TcSectionHeading(
+                    title: 'App Settings',
+                    showActionButton: false,
+                  ),
+                  TcSettingsMenuTile(
+                    icon: Iconsax.notification,
+                    title: 'Notifications',
+                    subTitle: 'Set any kind of notification message',
+
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
     );
   }
 }
-

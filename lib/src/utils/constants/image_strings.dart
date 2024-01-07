@@ -17,4 +17,5 @@ class TcImages {
   static const String statisSuccessllustration = 'assets/animations/sammy-line-woman-gives-five-to-a-robot-with-artificial-intelligence.png';
   static const String deliveryverifyIllustration = 'assets/animations/sammy-line-man-receives-a-mail.png';
   static const String successfullyRegisterAnimation = 'assets/animations/success.json';
+  static const String user = 'assets/user/user.png';
 }
