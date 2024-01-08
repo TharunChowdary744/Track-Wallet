@@ -60,7 +60,7 @@ class SignUpPage extends StatelessWidget {
                             Expanded(
                               child: CustomTextFormField(
                                   fieldController: controller.firstName,
-                                  hintText: 'First Name',
+                                  hintText: TcTexts.firstName,
                                   prefixImage: TcImages.textFieldName,
                                   keyboardType: TextInputType.text,
                                   currentNode: _firstNameNode,
@@ -73,7 +73,7 @@ class SignUpPage extends StatelessWidget {
                             Expanded(
                               child: CustomTextFormField(
                                   fieldController: controller.lastName,
-                                  hintText: "Last Name",
+                                  hintText: TcTexts.lastName,
                                   prefixImage: TcImages.textFieldName,
                                   keyboardType: TextInputType.text,
                                   currentNode: _lastNameNode,
@@ -104,7 +104,7 @@ class SignUpPage extends StatelessWidget {
                             textInputAction: TextInputAction.done,
                             maxLines: 1,
                             fieldController: controller.password,
-                            hintText: 'Password',
+                            hintText: TcTexts.password,
                             prefixImage: TcImages.textFieldPassword,
                             keyboardType: TextInputType.text,
                             validator: (value) =>
@@ -115,8 +115,8 @@ class SignUpPage extends StatelessWidget {
                               child: IconButton(
                                 icon: SvgPicture.asset(
                                   controller.hidePassword.value
-                                      ? "assets/icons/auth_icons/visibility_off.svg"
-                                      : "assets/icons/auth_icons/visibility.svg",
+                                      ? TcImages.visibilityOff
+                                      : TcImages.visibilityOn,
                                   color: Theme.of(context).primaryColor,
                                   height: screenHeight * 0.024471635,
                                   width: screenHeight * 0.024471635,

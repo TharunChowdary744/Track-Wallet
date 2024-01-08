@@ -70,6 +70,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icons/auth_icons/
+    - assets/onborading_animations/
     - assets/icons/nav_bar/
     - assets/icons/bottom_bar/
     - assets/icons/misc/

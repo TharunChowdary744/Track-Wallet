@@ -26,19 +26,23 @@ class TcUserProfileTile extends StatelessWidget {
         height: 50,
         padding: 0,
       ),
-      title: Text(
-        controller.user.value.fullName,
-        style: Theme.of(context)
-            .textTheme
-            .headlineSmall!
-            .apply(color: TcColors.white),
+      title: Obx(
+        ()=> Text(
+          controller.user.value.fullName,
+          style: Theme.of(context)
+              .textTheme
+              .headlineSmall!
+              .apply(color: TcColors.white),
+        ),
       ),
-      subtitle: Text(
-        controller.user.value.email,
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium!
-            .apply(color: TcColors.white),
+      subtitle: Obx(
+        ()=> Text(
+          controller.user.value.email,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .apply(color: TcColors.white),
+        ),
       ),
       trailing: IconButton(
           onPressed:onPressed,

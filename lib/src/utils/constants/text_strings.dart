@@ -1,15 +1,17 @@
 class TcTexts {
   // onBoarding
-  static const String onBoardingTitle1 = "Choose your type of expense";
-  static const String onBoardingTitle2 = "Enter your Expense";
-  static const String onBoardingTitle3 = "Track your Expenses";
-
-  static const String onBoardingSubTitle1 = "onBoardingSubTitle1";
-  static const String onBoardingSubTitle2 = "onBoardingSubTitle2";
-  static const String onBoardingSubTitle3 = "onBoardingSubTitle3";
+  static const String onBoardingTitle1 = "Welcome to [App Name] ";
+  static const String onBoardingTitle2 = "Simplify Your Spending";
+  static const String onBoardingTitle3 = "Empower Your Wallet";
+  static const String onBoardingSubTitle1 = "Take control of your finances with our intuitive expense tracker. Let's get started on your journey to financial well-being!";
+  static const String onBoardingSubTitle2 = "[App Name] helps you effortlessly manage your expenses. Start tracking, budgeting, and saving for your financial goals today!";
+  static const String onBoardingSubTitle3 = " Unlock the power of smart money management with [App Name]. Secure your financial future by tracking expenses, setting budgets, and making informed decisions. Let's begin!";
 
   // Auth
   static const String email = 'Email';
+  static const String password = 'Password';
+  static const String firstName = 'First Name';
+  static const String lastName = 'Last Name';
   static const String submit = 'Submit';
   static const String done = 'Done';
   static const String signUpHeading = 'Let\'s create your account';

@@ -1,3 +1,4 @@
+import 'package:expense_tracker/src/data/user/user_repository.dart';
 import 'package:expense_tracker/src/exceptions/platform_exceptions.dart';
 import 'package:expense_tracker/src/features/authentication/screens/signup/verify_email.dart';
 import 'package:flutter/services.dart';
@@ -122,6 +123,24 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
+  ///[ReAuthenticate] - RE AUTHENTICATE USER
+  Future<void>  reAuthenticateWithEmailAndPassword(String email, String password) async {
+    try {
+      AuthCredential credential= EmailAuthProvider.credential(email: email, password: password);
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      throw TcFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TcFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TcFormatException();
+    } on PlatformException catch (e) {
+      throw TcPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
   // --------------------------------Fedrated identity & social sign-in-------------------------------------
 
 
@@ -133,6 +152,22 @@ class AuthenticationRepository extends GetxController {
 
       final credentials = GoogleAuthProvider.credential(accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
       return await _auth.signInWithCredential(credentials);
+    } on FirebaseAuthException catch (e) {
+      throw TcFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TcFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TcFormatException();
+    } on PlatformException catch (e) {
+      throw TcPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+  Future<void>  deleteAccount() async {
+    try {
+      await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);
+      await _auth.currentUser!.delete();
     } on FirebaseAuthException catch (e) {
       throw TcFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {

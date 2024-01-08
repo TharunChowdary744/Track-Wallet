@@ -21,7 +21,7 @@ class OnBoardingPage extends StatelessWidget {
         children: [
           Image(
               width: TcHelperFunctions.screenWidth() * 0.8,
-              height: TcHelperFunctions.screenHeight() * 0.8,
+              height: TcHelperFunctions.screenHeight() * 0.6,
               image: AssetImage(image)),
           Text(
             title,

@@ -74,8 +74,13 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.notification,
                     title: 'Notifications',
                     subTitle: 'Set any kind of notification message',
-
                   ),
+                  SizedBox(height: TcSizes.spaceBtwSections,),
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(child: Text('Logout'),onPressed: (){},),
+                  ),
+                  SizedBox(height: TcSizes.spaceBtwSections*2.5,),
                 ],
               ),
             )

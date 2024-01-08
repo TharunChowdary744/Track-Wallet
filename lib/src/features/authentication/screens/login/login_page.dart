@@ -1,3 +1,4 @@
+import 'package:expense_tracker/src/utils/constants/image_strings.dart';
 import 'package:expense_tracker/src/utils/constants/sizes.dart';
 import 'package:expense_tracker/src/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
@@ -59,8 +60,8 @@ class LoginPage extends StatelessWidget {
                           textInputAction: TextInputAction.next,
                           maxLines: 1,
                           fieldController: controller.email,
-                          hintText: 'Email',
-                          prefixImage: 'assets/icons/auth_icons/mail.svg',
+                          hintText: TcTexts.email,
+                          prefixImage: TcImages.email,
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) => TcValidator.validateEmail(value!),
                         ),
@@ -72,8 +73,8 @@ class LoginPage extends StatelessWidget {
                             textInputAction: TextInputAction.done,
                             maxLines: 1,
                             fieldController: controller.password,
-                            hintText: 'Password',
-                            prefixImage: 'assets/icons/auth_icons/lock.svg',
+                            hintText: TcTexts.password,
+                            prefixImage: TcImages.password,
                             keyboardType: TextInputType.text,
                             validator: (value) =>
                                 TcValidator.validatePassword(value!),
@@ -83,8 +84,8 @@ class LoginPage extends StatelessWidget {
                               child: IconButton(
                                 icon: SvgPicture.asset(
                                   controller.hidePassword.value
-                                      ? "assets/icons/auth_icons/visibility_off.svg"
-                                      : "assets/icons/auth_icons/visibility.svg",
+                                      ? TcImages.visibilityOff
+                                      : TcImages.visibilityOn,
                                   color: Theme.of(context).primaryColor,
                                   height: screenHeight * 0.024471635,
                                   width: screenHeight * 0.024471635,

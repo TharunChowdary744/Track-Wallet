@@ -32,7 +32,7 @@ class TcAnimationLoaderWidget extends StatelessWidget {
           ),
           Text(
             text,
-            style: Theme.of(context).textTheme.displayMedium,
+            style: Theme.of(context).textTheme.displaySmall,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: TcSizes.defaultSpace,),

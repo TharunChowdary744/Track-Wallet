@@ -16,7 +16,6 @@ enum HomePageTab { Friends, Groups, AddExpense, AllExpenses, Notes }
 class HomeController extends GetxController {
   final PageController pageController = PageController();
   final TabController tabController = TabController(length: 5, vsync: Get.find());
-
   final Rx<HomePageTab> selectedTab = HomePageTab.Friends.obs;
 
   void changePage(int index) {
@@ -37,4 +36,5 @@ class HomeController extends GetxController {
     tabController.dispose();
     super.onClose();
   }
+
 }
