@@ -3,8 +3,10 @@ import 'package:expense_tracker/src/data/authentication/authentication_repositor
 import 'package:expense_tracker/src/exceptions/firebase_exceptions.dart';
 import 'package:expense_tracker/src/exceptions/format_exceptions.dart';
 import 'package:expense_tracker/src/exceptions/platform_exceptions.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../features/personalization/modals/user_model.dart';
 
 class UserRepository extends GetxController {
@@ -75,6 +77,23 @@ class UserRepository extends GetxController {
   Future<void>removeUserRecord(String userId) async {
     try{
       await _db.collection("Users").doc(userId).delete();
+    } on FirebaseException catch (e){
+      throw TcFirebaseException(e.code).message;
+    } on FormatException catch (_){
+      throw TcFormatException();
+    } on PlatformException catch (e){
+      throw TcPlatformException(e.code).message;
+    } catch (e){
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  Future<String> uploadImage(String path, XFile image)async{
+    try{
+      final ref = FirebaseStorage.instance.ref(path).child(image.name);
+      await ref.putFile(File(image.path));
+      final url = await ref.getDownloadURL();
+      return url;
     } on FirebaseException catch (e){
       throw TcFirebaseException(e.code).message;
     } on FormatException catch (_){
