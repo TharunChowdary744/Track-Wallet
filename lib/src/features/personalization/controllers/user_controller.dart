@@ -10,6 +10,7 @@ import 'package:expense_tracker/src/utils/popups/full_screen_loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../authentication/screens/login/re_authenticate_user_login_form.dart';
 
 class UserController extends GetxController {
@@ -44,11 +45,12 @@ class UserController extends GetxController {
 
   Future<void> saveUserRecord(UserCredential? userCredential) async {
     try {
+      await fetchUserDetails();
       if (userCredential != null) {
         final nameParts =
-            UserModel.nameParts(userCredential.user!.displayName ?? '');
+        UserModel.nameParts(userCredential.user!.displayName ?? '');
         final username =
-            UserModel.generateUsername(userCredential.user!.displayName ?? '');
+        UserModel.generateUsername(userCredential.user!.displayName ?? '');
 
         final user = UserModel(
           id: userCredential.user!.uid,
@@ -66,7 +68,7 @@ class UserController extends GetxController {
       TcLoaders.warningSnackBar(
           title: 'Data not saved',
           message:
-              'Something went wrong saving your information. You can re-save your data in the Profile');
+          'Something went wrong saving your information. You can re-save your data in the Profile');
     }
   }
 
@@ -75,7 +77,7 @@ class UserController extends GetxController {
         contentPadding: const EdgeInsets.all(TcSizes.md),
         title: 'Delete Acoount',
         middleText:
-            'Are you sure you want to delete your acoount permanently? This action is not reversible and all of your data will be removed permenantly.',
+        'Are you sure you want to delete your acoount permanently? This action is not reversible and all of your data will be removed permenantly.',
         confirm: ElevatedButton(
             onPressed: () {},
             // onPressed: () => deleteUserAccount,
@@ -117,24 +119,52 @@ class UserController extends GetxController {
 
   Future<void> reAuthenticateEmailAndPasswordUser() async {
     try {
-      TcFullScreenLoader.openLoadingDialog('Processing', TcImages.loadingDataImage);
+      TcFullScreenLoader.openLoadingDialog(
+          'Processing', TcImages.loadingDataImage);
 
       final isConnected = await NetworkManager.instance.isConnected();
-      if(!isConnected){
+      if (!isConnected) {
         TcFullScreenLoader.stopLoading();
         return;
       }
-      if(!reAuthFormKey.currentState!.validate()){
+      if (!reAuthFormKey.currentState!.validate()) {
         TcFullScreenLoader.stopLoading();
         return;
       }
-      await AuthenticationRepository.instance.reAuthenticateWithEmailAndPassword(verifyEmail.text.trim(), verifyPassword.text.trim());
+      await AuthenticationRepository.instance
+          .reAuthenticateWithEmailAndPassword(
+          verifyEmail.text.trim(), verifyPassword.text.trim());
       await AuthenticationRepository.instance.deleteAccount();
       TcFullScreenLoader.stopLoading();
-      Get.offAll(()=>LoginPage());
+      Get.offAll(() => LoginPage());
     } catch (e) {
       TcFullScreenLoader.stopLoading();
       TcLoaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
     }
+  }
+
+  uploadUserProfilePicture() async {
+    try{
+      final image = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 70,
+        maxHeight: 512,
+        maxWidth: 512,
+      );
+      if (image != null) {
+        final imageUrl =
+        await userRepository.uploadImage('User/Images/Profile/', image);
+        Map<String, dynamic> json = {'Photo': imageUrl};
+        await userRepository.updateSingleField(json);
+
+        user.value.photoURL = imageUrl;
+        TcLoaders.successSnackBar(title: 'Congratulations',message: 'Your profile Image has been updated');
+
+      }
+
+    }catch (e){
+      TcLoaders.errorSnackBar(title: 'Oh snap!', message: 'Something went wrong: $e');
+    }
+
   }
 }

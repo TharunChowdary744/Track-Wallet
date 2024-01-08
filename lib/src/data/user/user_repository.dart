@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../features/personalization/modals/user_model.dart';
+import 'dart:io';
+
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();

@@ -11,12 +11,12 @@ class UserModel {
   final String email;
   final String phoneNo;
   final String? password;
-  final String? photoURL;
+  late final String photoURL;
   final String? uid;
 
   UserModel({
     required this.id,
-    this.photoURL,
+    required this.photoURL,
     this.uid,
     this.displayName,
     required this.firstName,

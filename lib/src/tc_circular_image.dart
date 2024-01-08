@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:expense_tracker/src/shimmer.dart';
 import 'package:expense_tracker/src/utils/constants/colors.dart';
 import 'package:expense_tracker/src/utils/constants/sizes.dart';
 import 'package:expense_tracker/src/utils/helpers/helper_functions.dart';
@@ -34,13 +36,25 @@ class TcCircularImage extends StatelessWidget {
                   ? TcColors.black
                   : TcColors.white),
           borderRadius: BorderRadius.circular(100)),
-      child: Center(
-        child: Image(
-          fit: fit,
-          image: isNetworkImage
-              ? NetworkImage(image)
-              : AssetImage(image) as ImageProvider,
-          color: overlayColor,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: Center(
+          child: isNetworkImage
+              ? CachedNetworkImage(
+                  imageUrl: image,
+                  fit: fit,
+                  color: overlayColor,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      TcShimmerEffect(width: 55, height: 55, radius: 55,),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                )
+              : Image(
+                  fit: fit,
+                  image: isNetworkImage
+                      ? NetworkImage(image)
+                      : AssetImage(image) as ImageProvider,
+                  color: overlayColor,
+                ),
         ),
       ),
     );

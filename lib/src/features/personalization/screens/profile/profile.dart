@@ -32,13 +32,20 @@ class ProfileScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Column(
                   children: [
-                    TcCircularImage(
-                      image: TcImages.user,
-                      width: 80,
-                      height: 80,
-                    ),
+                    Obx(
+                    ()
+                    {
+                      final networkImage = controller.user.value.photoURL;
+                      final image=networkImage!.isNotEmpty?networkImage:TcImages.user;
+                         return TcCircularImage(
+                            image: image,
+                            width: 80,
+                            height: 80,
+                           isNetworkImage: networkImage.isNotEmpty,
+                          );
+                        }),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: ()=>controller.uploadUserProfilePicture(),
                         child: Text('Change Profile Picture')),
                   ],
                 ),
