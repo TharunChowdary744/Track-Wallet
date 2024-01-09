@@ -60,7 +60,9 @@ class SignUpController extends GetxController {
         firstName: firstName.text.trim(),
         lastName: lastName.text.trim(),
         email: email.text.trim(),
-        password: password.text.trim(), phoneNo: '', photoURL: '',
+        password: password.text.trim(),
+        profilePicture: '',
+        phoneNumber: '',
       );
 
       final userRepository = Get.put(UserRepository());
@@ -74,6 +76,7 @@ class SignUpController extends GetxController {
       // Show success Message
     } catch (e) {
       TcLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      TcFullScreenLoader.stopLoading();
     }
     // finally {
     //   TcFullScreenLoader.stopLoading();

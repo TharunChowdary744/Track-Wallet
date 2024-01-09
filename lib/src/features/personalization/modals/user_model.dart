@@ -4,32 +4,32 @@ import '../../../utils/formatters/formatter.dart';
 
 class UserModel {
   final String id;
-  final String? displayName;
+  // final String? displayName;
   String firstName;
   String lastName;
-  final String? username;
+  // final String username;
   final String email;
-  final String phoneNo;
+  final String phoneNumber;
   final String? password;
-  late final String photoURL;
+  String profilePicture;
   final String? uid;
 
   UserModel({
     required this.id,
-    required this.photoURL,
+    required this.profilePicture,
     this.uid,
-    this.displayName,
+    // this.displayName,
     required this.firstName,
     required this.lastName,
-    this.username,
+    // this.username,
     required this.email,
-    required this.phoneNo,
+    required this.phoneNumber,
     this.password,
   });
 
   String get fullName => '$firstName $lastName';
 
-  String get formattedPhoneNo => TcFormatter.formatPhoneNumber(phoneNo!);
+  String get formattedPhoneNo => TcFormatter.formatPhoneNumber(phoneNumber!);
 
   static List<String> nameParts(fullName) => fullName.split(" ");
 
@@ -44,18 +44,18 @@ class UserModel {
 
   }
 
-  static UserModel empty()=> UserModel(id: '', lastName: '', firstName: '',username: '',email: '',phoneNo: '',photoURL: '',password: '',);
+  static UserModel empty()=> UserModel(id: '', lastName: '', firstName: '',email: '',phoneNumber: '',profilePicture: '',password: '',);
   Map<String, dynamic>toJson() {
     return {
-      "DisplayName": displayName,
+      // "DisplayName": displayName,
       "FirstName": firstName,
       "LastName": lastName,
       "Email": email,
-      "Phone": phoneNo,
-      'Username':username,
-      "Photo": photoURL,
+      "PhoneNumber": phoneNumber,
+      // 'Username':username,
+      "ProfilePicture": profilePicture,
       "Password": password,
-      "UID": uid,
+      // "UID": uid,
     };
   }
 
@@ -65,13 +65,13 @@ class UserModel {
       final data = document.data()!;
       return UserModel(
         id: document.id,
-        displayName: data["DisplayName"]??'',
+        // displayName: data["DisplayName"]??'',
         firstName: data["FirstName"]??'',
         lastName: data["LastName"]??'',
         email: data["Email"]??'',
-        phoneNo: data["Phone"]??'',
+        phoneNumber: data["Phone"]??'',
         password: data["Password"]??'',
-        photoURL: data["Photo"]??'',
+        profilePicture: data["ProfilePicture"]??'',
       );
     } else {
       return UserModel.empty();

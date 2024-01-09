@@ -15,7 +15,7 @@ class TcImages {
   static const String email = 'assets/icons/auth_icons/mail.svg';
   static const String password = 'assets/icons/auth_icons/lock.svg';
   static const String visibilityOff = 'assets/icons/auth_icons/visibility_off.svg';
-  static const String visibilityOn = 'assets/icons/auth_icons/lock.svg';
+  static const String visibilityOn = 'assets/icons/auth_icons/visibility.svg';
 
 
   // Loading images

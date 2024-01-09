@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_tracker/src/data/authentication/authentication_repository.dart';
 import 'package:expense_tracker/src/exceptions/firebase_exceptions.dart';
@@ -8,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../features/personalization/modals/user_model.dart';
-import 'dart:io';
+
 
 
 class UserRepository extends GetxController {
@@ -94,6 +96,7 @@ class UserRepository extends GetxController {
     try{
       final ref = FirebaseStorage.instance.ref(path).child(image.name);
       await ref.putFile(File(image.path));
+
       final url = await ref.getDownloadURL();
       return url;
     } on FirebaseException catch (e){

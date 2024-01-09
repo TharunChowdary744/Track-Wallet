@@ -3,6 +3,7 @@ import 'package:expense_tracker/src/features/personalization/controllers/user_co
 import 'package:expense_tracker/src/features/personalization/screens/profile/change_name.dart';
 import 'package:expense_tracker/src/features/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:expense_tracker/src/section_heading.dart';
+import 'package:expense_tracker/src/shimmer.dart';
 import 'package:expense_tracker/src/tc_circular_image.dart';
 import 'package:expense_tracker/src/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -35,9 +36,9 @@ class ProfileScreen extends StatelessWidget {
                     Obx(
                     ()
                     {
-                      final networkImage = controller.user.value.photoURL;
-                      final image=networkImage!.isNotEmpty?networkImage:TcImages.user;
-                         return TcCircularImage(
+                      final networkImage = controller.user.value.profilePicture;
+                      final image=networkImage.isNotEmpty?networkImage:TcImages.user;
+                         return controller.imageUploading.value?TcShimmerEffect(width: 80, height: 80,radius: 80,):TcCircularImage(
                             image: image,
                             width: 80,
                             height: 80,
@@ -83,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               TcProfileMenu(onPressed: () {  }, title: 'User ID', value: controller.user.value.id,icon: Iconsax.copy_copy,),
               TcProfileMenu(onPressed: () {  }, title: 'E-mail', value: controller.user.value.email,),
-              controller.user.value.phoneNo!=''?TcProfileMenu(onPressed: () {  }, title: 'Phone Number', value: controller.user.value.phoneNo,):SizedBox(),
+              controller.user.value.phoneNumber!=''?TcProfileMenu(onPressed: () {  }, title: 'Phone Number', value: controller.user.value.phoneNumber,):SizedBox(),
               Divider(),
               SizedBox(height: TcSizes.spaceBtwItems,),
               Center(

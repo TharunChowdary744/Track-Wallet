@@ -1,6 +1,7 @@
 import 'package:expense_tracker/src/common/list_tiles/settings_menu_tile.dart';
 import 'package:expense_tracker/src/common/widgets/appbar/appbar.dart';
 import 'package:expense_tracker/src/common/widgets/custom_shapes/containers/primary_header_container.dart';
+import 'package:expense_tracker/src/data/authentication/authentication_repository.dart';
 import 'package:expense_tracker/src/section_heading.dart';
 import 'package:expense_tracker/src/tc_circular_image.dart';
 import 'package:expense_tracker/src/utils/constants/colors.dart';
@@ -21,6 +22,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = AuthenticationRepository.instance;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -78,7 +80,7 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(height: TcSizes.spaceBtwSections,),
                   SizedBox(
                     width: double.infinity,
-                    child: OutlinedButton(child: Text('Logout'),onPressed: (){},),
+                    child: OutlinedButton(child: Text('Logout'),onPressed: ()=>controller.logout(),),
                   ),
                   SizedBox(height: TcSizes.spaceBtwSections*2.5,),
                 ],

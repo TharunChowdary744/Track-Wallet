@@ -18,7 +18,9 @@ class UserController extends GetxController {
 
   final profileLoading = false.obs;
   Rx<UserModel> user = UserModel.empty().obs;
+
   final hidePassword = false.obs;
+  final imageUploading  = false.obs;
   final verifyEmail = TextEditingController();
   final verifyPassword = TextEditingController();
   final userRepository = Get.put(UserRepository());
@@ -35,7 +37,6 @@ class UserController extends GetxController {
       profileLoading.value = true;
       final user = await userRepository.fetchUserDetails();
       this.user(user);
-      // profileLoading.value = false;
     } catch (e) {
       user(UserModel.empty());
     } finally {
@@ -45,30 +46,34 @@ class UserController extends GetxController {
 
   Future<void> saveUserRecord(UserCredential? userCredential) async {
     try {
+      // Refersh User Record
       await fetchUserDetails();
-      if (userCredential != null) {
-        final nameParts =
-        UserModel.nameParts(userCredential.user!.displayName ?? '');
-        final username =
-        UserModel.generateUsername(userCredential.user!.displayName ?? '');
+      if (user.value.id.isEmpty) {
+        if (userCredential != null) {
+          final nameParts =
+              UserModel.nameParts(userCredential.user!.displayName ?? '');
+          final username = UserModel.generateUsername(
+              userCredential.user!.displayName ?? '');
 
-        final user = UserModel(
-          id: userCredential.user!.uid,
-          firstName: nameParts[0],
-          lastName: nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
-          username: username,
-          email: userCredential.user!.email ?? '',
-          phoneNo: userCredential.user!.phoneNumber ?? '',
-          photoURL: userCredential.user!.photoURL ?? '',
-        );
-
-        await userRepository.saveUserRecord(user);
+          final user = UserModel(
+            id: userCredential.user!.uid,
+            firstName: nameParts[0],
+            lastName:
+                nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
+            // username: username,
+            email: userCredential.user!.email ?? '',
+            phoneNumber: userCredential.user!.phoneNumber ?? '',
+            profilePicture: userCredential.user!.photoURL ?? '',
+          );
+//Save user Data
+          await userRepository.saveUserRecord(user);
+        }
       }
     } catch (e) {
       TcLoaders.warningSnackBar(
           title: 'Data not saved',
           message:
-          'Something went wrong saving your information. You can re-save your data in the Profile');
+              'Something went wrong saving your information. You can re-save your data in the Profile');
     }
   }
 
@@ -77,10 +82,10 @@ class UserController extends GetxController {
         contentPadding: const EdgeInsets.all(TcSizes.md),
         title: 'Delete Acoount',
         middleText:
-        'Are you sure you want to delete your acoount permanently? This action is not reversible and all of your data will be removed permenantly.',
+            'Are you sure you want to delete your acoount permanently? This action is not reversible and all of your data will be removed permenantly.',
         confirm: ElevatedButton(
-            onPressed: () {},
-            // onPressed: () => deleteUserAccount,
+            // onPressed: () {},
+            onPressed: () => deleteUserAccount(),
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
                 side: BorderSide(color: Colors.red)),
@@ -133,7 +138,7 @@ class UserController extends GetxController {
       }
       await AuthenticationRepository.instance
           .reAuthenticateWithEmailAndPassword(
-          verifyEmail.text.trim(), verifyPassword.text.trim());
+              verifyEmail.text.trim(), verifyPassword.text.trim());
       await AuthenticationRepository.instance.deleteAccount();
       TcFullScreenLoader.stopLoading();
       Get.offAll(() => LoginPage());
@@ -144,7 +149,7 @@ class UserController extends GetxController {
   }
 
   uploadUserProfilePicture() async {
-    try{
+    try {
       final image = await ImagePicker().pickImage(
         source: ImageSource.gallery,
         imageQuality: 70,
@@ -152,19 +157,23 @@ class UserController extends GetxController {
         maxWidth: 512,
       );
       if (image != null) {
+        imageUploading.value=true;
         final imageUrl =
-        await userRepository.uploadImage('User/Images/Profile/', image);
-        Map<String, dynamic> json = {'Photo': imageUrl};
+            await userRepository.uploadImage('Users/Images/Profile/', image);
+        Map<String, dynamic> json = {'ProfilePicture': imageUrl};
         await userRepository.updateSingleField(json);
 
-        user.value.photoURL = imageUrl;
-        TcLoaders.successSnackBar(title: 'Congratulations',message: 'Your profile Image has been updated');
-
+        user.value.profilePicture = imageUrl;
+        user.refresh();
+        TcLoaders.successSnackBar(
+            title: 'Congratulations',
+            message: 'Your profile Image has been updated!');
       }
-
-    }catch (e){
-      TcLoaders.errorSnackBar(title: 'Oh snap!', message: 'Something went wrong: $e');
+    } catch (e) {
+      TcLoaders.errorSnackBar(
+          title: 'Oh snap!', message: 'Something went wrong: $e');
+    }finally{
+      imageUploading.value=false;
     }
-
   }
 }
